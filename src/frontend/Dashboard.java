@@ -9,13 +9,11 @@ public class Dashboard extends JPanel {
 
     private boolean[][] adjacencyMatrix;
     private ArrayList<StationPosition> stationsPositions;
-    private static final int START_X = 20;
-    private static final int START_Y = 150;
     private static final int STATION_SIZE = 20;
 
     public Dashboard() {
         this.adjacencyMatrix = matrixGeneration();
-        this.stationsPositions = postionGeneration();
+        this.stationsPositions = positionGeneration();
     }
 
     @Override
@@ -27,6 +25,11 @@ public class Dashboard extends JPanel {
         printLine(g2);
     }
 
+    /**
+     * Draw lines between station according to the adjacency matrix
+     *
+     * @param g2 2d Graphics
+     */
     private void printLine(Graphics2D g2) {
         g2.setColor(Color.BLUE);
         g2.setStroke(new BasicStroke(2));
@@ -42,7 +45,7 @@ public class Dashboard extends JPanel {
     /**
      * Draw a circle for each station according to its position, add on top its number
      *
-     * @param g2
+     * @param g2 2d Graphics
      */
     private void paintStations(Graphics2D g2) {
 
@@ -61,7 +64,7 @@ public class Dashboard extends JPanel {
      *
      * @return Array of position of every station
      */
-    private ArrayList<StationPosition> postionGeneration() {
+    private ArrayList<StationPosition> positionGeneration() {
         ArrayList<StationPosition> positionsToReturn = new ArrayList<StationPosition>();
         int randomPosX, randomPosY;
 
@@ -79,14 +82,13 @@ public class Dashboard extends JPanel {
      * @return 2d boolean Adjacency matrix
      */
     private boolean[][] matrixGeneration() {
-        boolean[][] matrixToReturn = {
+
+        return new boolean[][]{
                 {false, true, false, true, false},
                 {true, false, true, true, false},
                 {false, true, false, true, true},
                 {true, true, true, false, true},
                 {false, false, true, true, false}
         };
-
-        return matrixToReturn;
     }
 }
