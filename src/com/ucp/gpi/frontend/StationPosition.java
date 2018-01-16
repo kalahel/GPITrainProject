@@ -1,4 +1,4 @@
-package frontend;
+package com.ucp.gpi.frontend;
 
 /**
  * TODO replace that by a position information in the station class

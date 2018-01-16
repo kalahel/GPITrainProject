@@ -1,4 +1,4 @@
-package frontend;
+package com.ucp.gpi.frontend;
 
 import javax.swing.*;
 import java.awt.*;
