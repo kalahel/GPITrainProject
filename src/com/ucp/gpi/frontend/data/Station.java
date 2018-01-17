@@ -1,13 +1,10 @@
-package com.ucp.gpi.frontend;
+package com.ucp.gpi.frontend.data;
 
-/**
- * TODO replace that by a position information in the station class
- */
-public class StationPosition {
+public class Station {
     private int posX;
     private int posY;
 
-    public StationPosition(int posX, int posY) {
+    public Station(int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
     }

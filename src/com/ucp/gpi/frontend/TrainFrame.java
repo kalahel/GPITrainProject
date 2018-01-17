@@ -8,6 +8,9 @@ public class TrainFrame extends JFrame {
     private JButton button1;
     private JPanel panel1;
     private JLabel firstLabel;
+    private JButton addStationButton;
+    private JButton addConnectionButton;
+    private JButton addToLineButton;
 
     public TrainFrame() {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
