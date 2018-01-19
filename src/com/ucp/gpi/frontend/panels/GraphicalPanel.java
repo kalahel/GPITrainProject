@@ -32,6 +32,10 @@ public class GraphicalPanel extends JPanel {
         statsChart.getPlot().setBackgroundPaint(Color.decode("#3C3F41"));
         statsChart.setBackgroundPaint(Color.decode("#3C3F41"));
         statsChart.getTitle().setPaint(Color.WHITE);
+        ((XYPlot) statsChart.getPlot()).getDomainAxis().setLabelPaint(Color.WHITE);
+        ((XYPlot) statsChart.getPlot()).getRangeAxis().setLabelPaint(Color.WHITE);
+        ((XYPlot) statsChart.getPlot()).getRangeAxis().setTickLabelPaint(Color.WHITE);
+        ((XYPlot) statsChart.getPlot()).getDomainAxis().setTickLabelPaint(Color.WHITE);
         ChartPanel gPanel = new ChartPanel(statsChart);
 
 
