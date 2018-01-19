@@ -12,6 +12,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class TrainFrame extends JFrame implements SwingerEventListener {
+
+    public static final int FRAME_SIZE_X = 1000;
+    public static final int FRAME_SIZE_Y = 400;
+
     private JPanel panel1;
     private Dashboard dashboard1;
     private JPanel bottomPanel;
@@ -84,7 +88,7 @@ public class TrainFrame extends JFrame implements SwingerEventListener {
         if (e.getSource() == greenButton)
             System.out.println("Green");
         else if (e.getSource() == blueButton)
-            System.out.println("Blue");
+            this.dashboard1.repaint();
         else if (e.getSource() == purpleButton)
             System.out.println("Purple");
         else if (e.getSource() == orangeButton)

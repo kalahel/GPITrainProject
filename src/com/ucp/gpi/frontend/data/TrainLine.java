@@ -1,6 +1,5 @@
 package com.ucp.gpi.frontend.data;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -8,11 +7,9 @@ import java.util.ArrayList;
  */
 public class TrainLine {
     private ArrayList<Canton> cantonList;
-    private Color color;
 
-    public TrainLine(ArrayList<Canton> cantonList, Color color) {
+    public TrainLine(ArrayList<Canton> cantonList) {
         this.cantonList = cantonList;
-        this.color = color;
     }
 
     public void addCanton(Canton canton){
