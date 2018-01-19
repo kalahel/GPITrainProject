@@ -1,5 +1,6 @@
-package com.ucp.gpi.frontend;
+package com.ucp.gpi.frontend.panels;
 
+import com.ucp.gpi.frontend.TrainFrame;
 import com.ucp.gpi.frontend.data.Canton;
 import com.ucp.gpi.frontend.data.Station;
 import com.ucp.gpi.frontend.data.TrainLine;

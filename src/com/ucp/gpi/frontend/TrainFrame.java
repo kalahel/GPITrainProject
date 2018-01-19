@@ -1,5 +1,7 @@
 package com.ucp.gpi.frontend;
 
+import com.ucp.gpi.frontend.panels.Dashboard;
+import com.ucp.gpi.frontend.panels.GraphicalPanel;
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
@@ -18,11 +20,14 @@ public class TrainFrame extends JFrame implements SwingerEventListener {
 
     private JPanel panel1;
     private Dashboard dashboard1;
-    private JPanel bottomPanel;
+    private JPanel leftBottomPanel;
     private STexturedButton blueButton;
     private STexturedButton orangeButton;
     private STexturedButton purpleButton;
     private STexturedButton greenButton;
+    private JPanel rightBottomPanel;
+    private JTextArea statsArea;
+    private GraphicalPanel gPanel;
 
     public TrainFrame() {
         this.setTitle("Train Simulator 2018");
@@ -61,7 +66,8 @@ public class TrainFrame extends JFrame implements SwingerEventListener {
             }
         });
         dashboard1.repaint();
-        bottomPanel.setBackground(new Color(0, 0, 0, 0));
+        leftBottomPanel.setBackground(new Color(0, 0, 0, 0));
+        rightBottomPanel.setBackground(new Color(0, 0, 0, 0));
 
         blueButton.addEventListener(this);
         orangeButton.addEventListener(this);
@@ -81,6 +87,11 @@ public class TrainFrame extends JFrame implements SwingerEventListener {
 
         greenButton = new STexturedButton(Swinger.getResource("greenButton.png"));
         greenButton.setPreferredSize(new Dimension(100, 100));
+
+        greenButton = new STexturedButton(Swinger.getResource("greenButton.png"));
+        greenButton.setPreferredSize(new Dimension(100, 100));
+
+        gPanel = new GraphicalPanel();
     }
 
     @Override
@@ -88,7 +99,7 @@ public class TrainFrame extends JFrame implements SwingerEventListener {
         if (e.getSource() == greenButton)
             System.out.println("Green");
         else if (e.getSource() == blueButton)
-            this.dashboard1.repaint();
+            System.out.println("Blue");
         else if (e.getSource() == purpleButton)
             System.out.println("Purple");
         else if (e.getSource() == orangeButton)
