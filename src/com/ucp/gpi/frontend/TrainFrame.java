@@ -88,9 +88,6 @@ public class TrainFrame extends JFrame implements SwingerEventListener {
         greenButton = new STexturedButton(Swinger.getResource("greenButton.png"));
         greenButton.setPreferredSize(new Dimension(100, 100));
 
-        greenButton = new STexturedButton(Swinger.getResource("greenButton.png"));
-        greenButton.setPreferredSize(new Dimension(100, 100));
-
         gPanel = new GraphicalPanel();
     }
 
