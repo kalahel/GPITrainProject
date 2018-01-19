@@ -19,7 +19,7 @@ public class Dashboard extends JPanel {
     private ArrayList<Station> stationsArray;
     private ArrayList<Canton> cantonArray;
     private ArrayList<TrainLine> trainLineArray;
-    private static final int STATION_SIZE = 20;
+    private static final int STATION_SIZE = 15;
 
     public Dashboard() {
         this.adjacencyMatrix = matrixGeneration();
@@ -71,11 +71,11 @@ public class Dashboard extends JPanel {
      */
     private void paintStations(Graphics2D g2) {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setStroke(new BasicStroke(8));
+        g2.setStroke(new BasicStroke(4));
         for (int index = 0; index < this.stationsArray.size(); index++) {
             g2.setColor(STATION_COLOR);
             g2.drawOval(stationsArray.get(index).getPosX() - (STATION_SIZE / 2), stationsArray.get(index).getPosY() - (STATION_SIZE / 2), STATION_SIZE, STATION_SIZE);
-            g2.setColor(Color.black);
+            g2.setColor(Color.WHITE);
             g2.drawString("" + (index + 1), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);
         }
 
@@ -106,13 +106,12 @@ public class Dashboard extends JPanel {
      * @return 2d boolean Adjacency matrix
      */
     private boolean[][] matrixGeneration() {
-
         return new boolean[][]{
-                {false, true, false, true, false},
-                {true, false, true, true, false},
-                {false, true, false, true, true},
-                {true, true, true, false, true},
-                {false, false, true, true, false}
+                {true, true, false, false, false},
+                {false, true, true, false, false},
+                {false, false, true, true, false},
+                {false, false, false, true, true},
+                {true, false, false, false, true}
         };
     }
 
