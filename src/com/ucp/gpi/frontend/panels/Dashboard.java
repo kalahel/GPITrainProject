@@ -1,6 +1,5 @@
 package com.ucp.gpi.frontend.panels;
 
-import com.ucp.gpi.frontend.TrainFrame;
 import com.ucp.gpi.frontend.data.Canton;
 import com.ucp.gpi.frontend.data.Station;
 import com.ucp.gpi.frontend.data.TrainLine;
@@ -14,6 +13,8 @@ public class Dashboard extends JPanel {
 
     private final Color LINE_COLOR = Color.decode("#29B6F6");
     private final Color STATION_COLOR = Color.decode("#FFA726");
+    public static final int DB_SIZE_X = 1000;
+    public static final int DB_SIZE_Y = 400;
 
     private boolean[][] adjacencyMatrix;
     private ArrayList<Station> stationsArray;
@@ -30,8 +31,8 @@ public class Dashboard extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        paintStations(g2);
         printLine(g2);
+        paintStations(g2);
     }
 
     /**
@@ -92,8 +93,8 @@ public class Dashboard extends JPanel {
         int randomPosX, randomPosY;
 
         for (boolean b[] : this.adjacencyMatrix) {
-            randomPosX = ThreadLocalRandom.current().nextInt(30, TrainFrame.FRAME_SIZE_X + 1 - 30);
-            randomPosY = ThreadLocalRandom.current().nextInt(30, TrainFrame.FRAME_SIZE_Y + 1 - 30);
+            randomPosX = ThreadLocalRandom.current().nextInt(30, DB_SIZE_X + 1 - 30);
+            randomPosY = ThreadLocalRandom.current().nextInt(30, DB_SIZE_Y + 1 - 30);
             positionsToReturn.add(new Station(randomPosX, randomPosY));
         }
 

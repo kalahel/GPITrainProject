@@ -22,6 +22,7 @@ public class GraphicalPanel extends JPanel {
         series.add(1, 4);
         series.add(3, 9);
         series.add(4, 4);
+        series.add(2, 2);
 
         renderer.setSeriesPaint(0, Color.decode("#F44336"));
         renderer.setSeriesShapesVisible(0, true);
@@ -32,12 +33,13 @@ public class GraphicalPanel extends JPanel {
         statsChart.getPlot().setBackgroundPaint(Color.decode("#3C3F41"));
         statsChart.setBackgroundPaint(Color.decode("#3C3F41"));
         statsChart.getTitle().setPaint(Color.WHITE);
+
         ((XYPlot) statsChart.getPlot()).getDomainAxis().setLabelPaint(Color.WHITE);
         ((XYPlot) statsChart.getPlot()).getRangeAxis().setLabelPaint(Color.WHITE);
         ((XYPlot) statsChart.getPlot()).getRangeAxis().setTickLabelPaint(Color.WHITE);
         ((XYPlot) statsChart.getPlot()).getDomainAxis().setTickLabelPaint(Color.WHITE);
-        ChartPanel gPanel = new ChartPanel(statsChart);
 
+        ChartPanel gPanel = new ChartPanel(statsChart);
 
         this.add(gPanel);
     }

@@ -1,6 +1,7 @@
 package com.ucp.gpi.frontend;
 
 import com.ucp.gpi.frontend.panels.Dashboard;
+import com.ucp.gpi.frontend.panels.Displayable;
 import com.ucp.gpi.frontend.panels.GraphicalPanel;
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
@@ -13,13 +14,10 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class TrainFrame extends JFrame implements SwingerEventListener {
-
-    public static final int FRAME_SIZE_X = 1000;
-    public static final int FRAME_SIZE_Y = 400;
+public class TrainFrame extends JFrame implements SwingerEventListener, Displayable {
 
     private JPanel panel1;
-    private Dashboard dashboard1;
+    private Dashboard dashboard;
     private JPanel leftBottomPanel;
     private STexturedButton blueButton;
     private STexturedButton orangeButton;
@@ -35,6 +33,9 @@ public class TrainFrame extends JFrame implements SwingerEventListener {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setContentPane(panel1);
         this.setResizable(false);
+
+        dashboard.setPreferredSize(new Dimension(Dashboard.DB_SIZE_X, Dashboard.DB_SIZE_Y));
+
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -43,7 +44,7 @@ public class TrainFrame extends JFrame implements SwingerEventListener {
         this.addMouseListener(mover);
         this.addMouseMotionListener(mover);
 
-        dashboard1.addMouseListener(new MouseListener() {
+        dashboard.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.err.println(e.getX() + ";" + e.getY());
@@ -65,7 +66,7 @@ public class TrainFrame extends JFrame implements SwingerEventListener {
             public void mouseExited(MouseEvent e) {
             }
         });
-        dashboard1.repaint();
+        dashboard.repaint();
         leftBottomPanel.setBackground(new Color(0, 0, 0, 0));
         rightBottomPanel.setBackground(new Color(0, 0, 0, 0));
 
@@ -101,5 +102,10 @@ public class TrainFrame extends JFrame implements SwingerEventListener {
             System.out.println("Purple");
         else if (e.getSource() == orangeButton)
             System.out.println("Orange");
+    }
+
+    @Override
+    public void refreshPanel() {
+        dashboard.repaint();
     }
 }
