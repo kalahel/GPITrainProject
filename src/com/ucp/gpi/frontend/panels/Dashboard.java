@@ -2,6 +2,7 @@ package com.ucp.gpi.frontend.panels;
 
 import com.ucp.gpi.frontend.data.Canton;
 import com.ucp.gpi.frontend.data.Station;
+import com.ucp.gpi.frontend.data.Train;
 import com.ucp.gpi.frontend.data.TrainLine;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ public class Dashboard extends JPanel {
 
     private final Color LINE_COLOR = Color.decode("#29B6F6");
     private final Color STATION_COLOR = Color.decode("#FFA726");
+    private final Color TRAIN_COLOR = Color.decode("#F67280");
     public static final int DB_SIZE_X = 1000;
     public static final int DB_SIZE_Y = 400;
 
@@ -20,11 +22,18 @@ public class Dashboard extends JPanel {
     private ArrayList<Station> stationsArray;
     private ArrayList<Canton> cantonArray;
     private ArrayList<TrainLine> trainLineArray;
+    private ArrayList<Train> trainsArray;
+
     private static final int STATION_SIZE = 15;
+    private static final int TRAIN_SIZE = 10;
 
     public Dashboard() {
         this.adjacencyMatrix = matrixGeneration();
         this.stationsArray = positionGeneration();
+
+        //TODO remove those lines, only used for tests
+        this.trainsArray = new ArrayList<Train>();
+        //this.trainsArray.add(new Train(100,100));
     }
 
     @Override
@@ -33,6 +42,7 @@ public class Dashboard extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         printLine(g2);
         paintStations(g2);
+        paintTrains(g2);
     }
 
     /**
@@ -53,7 +63,6 @@ public class Dashboard extends JPanel {
 
     /**
      * Draw a line representing each canton
-     * TODO add an arrow to specify the direction of the canton
      *
      * @param g2 2d Graphics
      */
@@ -78,6 +87,21 @@ public class Dashboard extends JPanel {
             g2.drawOval(stationsArray.get(index).getPosX() - (STATION_SIZE / 2), stationsArray.get(index).getPosY() - (STATION_SIZE / 2), STATION_SIZE, STATION_SIZE);
             g2.setColor(Color.WHITE);
             g2.drawString("" + (index + 1), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);
+        }
+
+    }
+    /**
+     * Draw a rectangle for each station according to its position
+     *
+     * @param g2 2d Graphics
+     */
+    private void paintTrains(Graphics2D g2) {
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setStroke(new BasicStroke(4));
+        for (int index = 0; index < this.trainsArray.size(); index++) {
+            g2.setColor(TRAIN_COLOR);
+            g2.drawRect(trainsArray.get(index).getPosX() - (TRAIN_SIZE / 2), trainsArray.get(index).getPosY() - (TRAIN_SIZE / 2), TRAIN_SIZE, TRAIN_SIZE);
+
         }
 
     }
