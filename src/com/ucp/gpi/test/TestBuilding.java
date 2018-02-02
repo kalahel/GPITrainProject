@@ -13,7 +13,7 @@ public class TestBuilding {
 		
 		for(int i=0; i<l.getNb_stations(); i++) {
 			if(i != (l.getNb_stations()-1)) {
-				System.out.println(l.getStations().get(i).getName() + "\t\t\t" + l.getCantons().get(i).getEnds().get(0).getName() + " --> " + l.getCantons().get(i).getEnds().get(1).getName());
+				System.out.println(l.getStations().get(i).getName() + "\t\t\t" + l.getCantons().get(i).getBeginStation().getName() + " --> " + l.getCantons().get(i).getEndStation().getName());
 			}
 			else {
 				System.out.println(l.getStations().get(i).getName());

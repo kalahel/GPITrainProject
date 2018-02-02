@@ -11,13 +11,14 @@ import java.util.ArrayList;
 public class Canton {
 
 	private String ID;
-	private ArrayList<Station> ends;
+	private Station beginStation;
+	private Station endStation;
 	private double lenght;
 	private int occupation;
 	private int speed;
+	private Train currentTrain;
 	
 	public Canton() {
-		ends = new ArrayList<Station>();
 	}
 
 	public String getID() {
@@ -26,14 +27,6 @@ public class Canton {
 
 	public void setID(String iD) {
 		ID = iD;
-	}
-
-	public ArrayList<Station> getEnds() {
-		return ends;
-	}
-
-	public void setEnds(ArrayList<Station> ends) {
-		this.ends = ends;
 	}
 
 	public double getLenght() {
@@ -60,9 +53,33 @@ public class Canton {
 		this.speed = speed;
 	}
 
+	public Station getBeginStation() {
+		return beginStation;
+	}
+
+	public void setBeginStation(Station beginStation) {
+		this.beginStation = beginStation;
+	}
+
+	public Station getEndStation() {
+		return endStation;
+	}
+
+	public void setEndStation(Station endStation) {
+		this.endStation = endStation;
+	}
+
+	public Train getCurrentTrain() {
+		return currentTrain;
+	}
+
+	public void setCurrentTrain(Train currentTrain) {
+		this.currentTrain = currentTrain;
+	}
+
 	@Override
 	public String toString() {
-		return "Canton [ID=" + ID + ", ends=" + ends + ", lenght=" + lenght + ", occupation=" + occupation + ", speed="
+		return "Canton [ID=" + ID + ", begin=" + beginStation.toString() + ", end=" + endStation.toString() + ", lenght=" + lenght + ", occupation=" + occupation + ", speed="
 				+ speed + "]";
 	}
 

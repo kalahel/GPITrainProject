@@ -26,8 +26,8 @@ public class CantonBuilder {
 		Canton canton = new Canton();
 
 		canton.setID(UUID.randomUUID().toString());
-		canton.getEnds().add(start);
-		canton.getEnds().add(end);
+		canton.setBeginStation(start);
+		canton.setEndStation(end);
 		canton.setLenght(aleaMin + (Math.random() * (aleaMax - aleaMin)));
 		canton.setOccupation(0);
 		canton.setSpeed(constSpeed);
