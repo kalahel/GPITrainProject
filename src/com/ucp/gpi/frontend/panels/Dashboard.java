@@ -7,18 +7,21 @@ import com.ucp.gpi.frontend.data.TrainLine;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Dashboard extends JPanel {
 
     private final Color LINE_COLOR = Color.decode("#29B6F6");
-    private final Color STATION_COLOR = Color.decode("#FFA726");
+    private final Color STATION_COLOR = new Color(255, 167, 38);
+    private final Color SELECTED_STATION_COLOR = Color.WHITE;
     private final Color TRAIN_COLOR = Color.decode("#F67280");
     public static final int DB_SIZE_X = 1000;
     public static final int DB_SIZE_Y = 400;
 
     private boolean[][] adjacencyMatrix;
+    private int selectedStationIndex = -1;
     private ArrayList<Station> stationsArray;
     private ArrayList<Canton> cantonArray;
     private ArrayList<TrainLine> trainLineArray;
@@ -34,6 +37,24 @@ public class Dashboard extends JPanel {
         //TODO remove those lines, only used for tests
         this.trainsArray = new ArrayList<Train>();
         //this.trainsArray.add(new Train(100,100));
+    }
+
+
+    public int getSelectedStationIndex() {
+        return selectedStationIndex;
+    }
+
+    /**
+     * Gives
+     *
+     * @param e MouseEvent
+     */
+    public void getStationFromClick(MouseEvent e) {
+        for (Station s : stationsArray)
+            if (Math.abs(s.getPosX() - e.getX()) < STATION_SIZE && Math.abs(s.getPosY() - e.getY()) < STATION_SIZE) {
+                selectedStationIndex = stationsArray.indexOf(s);
+                return;
+            }
     }
 
     @Override
@@ -83,7 +104,10 @@ public class Dashboard extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setStroke(new BasicStroke(4));
         for (int index = 0; index < this.stationsArray.size(); index++) {
-            g2.setColor(STATION_COLOR);
+            if (index == selectedStationIndex)
+                g2.setColor(SELECTED_STATION_COLOR);
+            else
+                g2.setColor(STATION_COLOR);
             g2.drawOval(stationsArray.get(index).getPosX() - (STATION_SIZE / 2), stationsArray.get(index).getPosY() - (STATION_SIZE / 2), STATION_SIZE, STATION_SIZE);
             g2.setColor(Color.WHITE);
             g2.drawString("" + (index + 1), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);

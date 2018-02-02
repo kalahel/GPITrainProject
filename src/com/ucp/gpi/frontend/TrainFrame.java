@@ -47,7 +47,8 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
         dashboard.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.err.println(e.getX() + ";" + e.getY());
+                dashboard.getStationFromClick(e);
+                refreshAll();
             }
 
             @Override
@@ -97,15 +98,32 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
         if (e.getSource() == greenButton)
             System.out.println("Green");
         else if (e.getSource() == blueButton)
-            System.out.println("Blue");
+            this.refreshPanel();
         else if (e.getSource() == purpleButton)
             System.out.println("Purple");
         else if (e.getSource() == orangeButton)
             System.out.println("Orange");
     }
 
+    public void refreshAll() {
+        refreshPanel();
+        refreshStats();
+        pack();
+    }
+
     @Override
     public void refreshPanel() {
         dashboard.repaint();
+    }
+
+    public void refreshStats() {
+        String text = "";
+        text += "Station sélectionnée : " + (dashboard.getSelectedStationIndex() + 1);
+        text += "\nSatisfaction moyenne : X";
+        text += "\nOccupation moyenne des trains et des gares : X";
+        text += "\nNombre de passagers actuel : X";
+        text += "\nNombre de passagers total : X";
+
+        statsArea.setText(text);
     }
 }
