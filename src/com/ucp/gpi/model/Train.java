@@ -20,6 +20,7 @@ public class Train {
 	private ArrayList<User> Users;
 	private int capacity;
 	private Coordinates coord;
+	private Trace trace;
 	
 	public Train() {
 		
