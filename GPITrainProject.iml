@@ -13,5 +13,6 @@
     <orderEntry type="library" name="jfreechart-1.0.1" level="project" />
     <orderEntry type="library" name="swinger-1.0.1-BETA1" level="project" />
     <orderEntry type="library" name="commons-csv-1.4" level="project" />
+    <orderEntry type="library" name="forms_rt" level="project" />
   </component>
 </module>
