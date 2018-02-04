@@ -25,6 +25,10 @@ public class Train {
 	public Train() {
 		
 	}
+	
+	public void start(){
+		/* commence ses actions */
+	}
 
 	public String getID() {
 		return ID;

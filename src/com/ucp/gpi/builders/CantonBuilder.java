@@ -29,7 +29,7 @@ public class CantonBuilder {
 		canton.setBeginStation(start);
 		canton.setEndStation(end);
 		canton.setLenght(aleaMin + (Math.random() * (aleaMax - aleaMin)));
-		canton.setOccupation(0);
+		canton.setOccupation(false);
 		canton.setSpeed(constSpeed);
 		
 		return canton;

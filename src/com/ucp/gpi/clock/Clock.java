@@ -8,6 +8,7 @@ import com.ucp.gpi.utils.CyclicCounter;
  * @version 22012017
  */
 public class Clock extends Thread{
+	private int total;
 	private CyclicCounter min;
 	private CyclicCounter hours;
 	private CyclicCounter days;
@@ -18,6 +19,7 @@ public class Clock extends Thread{
 	private boolean pause;
 	
 	public Clock(int hours, int min, int days, int mounths, int years){
+		this.total = 0;
 		this.min = new CyclicCounter(min, 0, 59);
 		this.hours = new CyclicCounter(hours, 0, 23);
 		this.days = new CyclicCounter(days, 1, 30);
@@ -32,6 +34,7 @@ public class Clock extends Thread{
 	 * This method increment the clock
 	 */
 	public void increment(){
+		this.total ++;
 		min.increment(1);
 		if(min.getCounter() == min.getMin()){
 			hours.increment();
@@ -60,6 +63,14 @@ public class Clock extends Thread{
 			this.increment();
 			System.out.println(this.toString());
 		}
+	}
+	
+	public int getTotal(){
+		return total;
+	}
+	
+	public void setTotal(int total){
+		this.total = total;
 	}
 
 	public CyclicCounter getMin() {

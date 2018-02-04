@@ -6,19 +6,26 @@ package com.ucp.gpi.model;
   *
   */
 
-import java.util.ArrayList;
-
 public class Canton {
 
 	private String ID;
 	private Station beginStation;
 	private Station endStation;
 	private double lenght;
-	private int occupation;
+	private boolean occupation;
 	private int speed;
 	private Train currentTrain;
 	
 	public Canton() {
+	}
+	
+	public boolean isFree(){
+		if(occupation == true){
+			return false;
+		}
+		else{
+			return true;
+		}
 	}
 
 	public String getID() {
@@ -37,11 +44,11 @@ public class Canton {
 		this.lenght = lenght;
 	}
 
-	public int getOccupation() {
+	public boolean getOccupation() {
 		return occupation;
 	}
 
-	public void setOccupation(int occupation) {
+	public void setOccupation(boolean occupation) {
 		this.occupation = occupation;
 	}
 
