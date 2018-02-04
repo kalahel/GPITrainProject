@@ -9,7 +9,7 @@ public class Canton {
     /**
      *
      * @param internalStation is from where the train will come
-     * @param externalStation is from where the train will leave
+     * @param externalStation is to where the train will leave
      */
     public Canton(Station internalStation, Station externalStation) {
         this.internalStation = internalStation;
