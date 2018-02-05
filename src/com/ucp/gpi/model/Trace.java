@@ -7,6 +7,10 @@ public class Trace {
 	private ArrayList<Canton> trace;
 	private int nbCanton;
 	
+	public Trace(){
+		
+	}
+	
 	public ArrayList<Canton> getTrace() {
 		return trace;
 	}

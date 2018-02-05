@@ -1,5 +1,10 @@
 package com.ucp.gpi.builders;
 
+import java.util.ArrayList;
+
+import com.ucp.gpi.model.Canton;
+import com.ucp.gpi.model.Line;
+import com.ucp.gpi.model.Station;
 import com.ucp.gpi.model.Train;
 
 public class TrainBuilder {
@@ -12,5 +17,41 @@ public class TrainBuilder {
 	public Train creat(/* a venir */){
 		Train train = new Train();
 		return train;
+	}
+	
+	private ArrayList<Canton> findTrace(Station begin, Station end, Line line){
+		int i = 0;
+		
+		ArrayList<Canton> cantonPack = line.getCantons();
+		ArrayList<Canton> cantonPool = new ArrayList<Canton>();
+		ArrayList<Canton> trace = new ArrayList<Canton>();
+		ArrayList<Canton> trace_tmp = new ArrayList<Canton>();
+		
+		Station currentDeparture = begin;
+		
+		do{
+			for(i=0; i<cantonPack.size(); i++){
+				if (cantonPack.get(i).getBeginStation() == currentDeparture)
+					cantonPool.add(cantonPack.get(i));
+			}
+			if (cantonPool.size() == 1){
+				trace.add(cantonPool.get(0));
+				if (cantonPool.get(0).getEndStation() == end)
+					return trace;
+				currentDeparture = cantonPool.get(0).getEndStation();
+			}
+		}while(cantonPool.size() == 1);
+		
+		if (cantonPool.isEmpty())
+			return null;
+		if (cantonPool.size() > 1){
+			for (i=0; i<cantonPool.size(); i++){
+				if ((trace_tmp = findTrace(cantonPool.get(i).getEndStation(), end, line)) != null)
+					if (trace.addAll(trace_tmp))
+						return trace;
+			}
+			return null;
+		}
+		return trace;
 	}
 }
