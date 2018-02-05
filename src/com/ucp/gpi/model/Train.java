@@ -109,6 +109,14 @@ public class Train {
 	public void setCoord(Coordinates coord) {
 		this.coord = coord;
 	}
+	
+	public Trace getTrace() {
+		return trace;
+	}
+
+	public void setTrace(Trace trace) {
+		this.trace = trace;
+	}
 
 	@Override
 	public String toString() {
