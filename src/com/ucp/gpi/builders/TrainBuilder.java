@@ -16,6 +16,17 @@ public class TrainBuilder {
 	
 	public Train creat(/* a venir */){
 		Train train = new Train();
+		
+		train = basicInit(train);
+		
+		return train;
+	}
+	
+	public Train basicInit(Train train){
+		
+		train.setProgression(0);
+		train.setCurrentDistanceDone(0);
+		
 		return train;
 	}
 	

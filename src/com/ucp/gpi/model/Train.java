@@ -8,7 +8,7 @@ import com.ucp.gpi.utils.Coordinates;
  * @author matthieu
  *
  */
-public class Train {
+public class Train extends Thread{
 	
 	private String ID;
 	private Line line;
@@ -16,6 +16,8 @@ public class Train {
 	private Station currentStation;
 	private Station src;
 	private Station dest;
+	private double progression;
+	private double currentDistanceDone;
 	private int nbUsers;
 	private ArrayList<User> Users;
 	private int capacity;
@@ -28,6 +30,25 @@ public class Train {
 	
 	public void start(){
 		/* commence ses actions */
+	}
+	
+	/**
+	 * This methode is called at each time iteration to update the position of th train 
+	 */
+	public void updateProgression(){
+		if(currentStation == null && currentCanton != null){
+			this.currentDistanceDone += this.currentCanton.getSpeed();
+			progression = currentDistanceDone/currentCanton.getLenght();
+			
+			//if the train reach the end of the canton
+			if(progression >= 1){
+				this.setCurrentStation(currentCanton.getEndStation());
+				this.setCurrentCanton(null);
+				
+				progression = 0;
+				currentDistanceDone = 0;
+			}
+		}
 	}
 
 	public String getID() {
@@ -76,6 +97,22 @@ public class Train {
 
 	public void setDest(Station dest) {
 		this.dest = dest;
+	}
+
+	public double getProgression() {
+		return progression;
+	}
+
+	public void setProgression(double progression) {
+		this.progression = progression;
+	}
+
+	public double getCurrentDistanceDone() {
+		return currentDistanceDone;
+	}
+
+	public void setCurrentDistanceDone(double currentDistanceDone) {
+		this.currentDistanceDone = currentDistanceDone;
 	}
 
 	public int getNbUsers() {

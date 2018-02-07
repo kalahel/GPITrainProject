@@ -14,9 +14,9 @@ import com.ucp.gpi.model.Station;
  */
 public class CantonBuilder {
 
-	private int aleaMin = 2;
-	private int aleaMax = 8;
-	private int constSpeed = 100;
+	private int aleaMin = 30;
+	private int aleaMax = 40;
+	private int constSpeed = 2;
 	
 	public CantonBuilder() {
 		

@@ -26,7 +26,7 @@ public class Clock extends Thread{
 		this.months = new CyclicCounter(mounths, 1, 12);
 		this.years = new CyclicCounter(years, 2017, 2117);
 		
-		this.speed = 500;
+		this.speed = 50;
 		this.pause = false;
 	}
 	
