@@ -15,10 +15,11 @@ public class TrainBuilder {
 		
 	}
 	
-	public Train creat(/* a venir */){
+	public Train creat(Line line){
 		Train train = new Train();
+		int lastStation = line.getStations().size();
 		train.setTrace(new Trace());
-		
+		train.getTrace().setTrace(this.findTrace(line.getStations().get(0), line.getStations().get(lastStation-1), line));
 		train = basicInit(train);
 		
 		return train;
