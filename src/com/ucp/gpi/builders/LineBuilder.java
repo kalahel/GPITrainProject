@@ -31,7 +31,7 @@ public class LineBuilder {
 		
 	}
 	
-	public Line CreatLineFromFile(String line_name) {
+	public Line creatLineFromFile(String line_name) {
 		
 		System.out.println(LINERERPATH);
 
