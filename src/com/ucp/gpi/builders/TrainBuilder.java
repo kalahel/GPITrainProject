@@ -26,7 +26,8 @@ public class TrainBuilder {
 	}
 	
 	public Train basicInit(Train train){
-		
+		Double d = Math.random() * 1000;
+		train.setID(String.valueOf(d.intValue())); 
 		train.setProgression(0);
 		train.setCurrentDistanceDone(0);
 		

@@ -55,6 +55,7 @@ public class Train extends Thread{
 			
 			//if the train reach the end of the canton
 			if(progression >= 1){
+				System.out.println("Train " + ID + ": Entré en Gare (" + this.getCurrentCanton().getEndStation().getName() + ")");
 				this.getCurrentCanton().setOccupation(false);
 				this.getTrace().getTrace().remove(0);
 				this.setCurrentStation(currentCanton.getEndStation());
@@ -63,17 +64,31 @@ public class Train extends Thread{
 				progression = 0;
 				currentDistanceDone = 0;
 			}
+			else{
+				System.out.println("Train " + ID + ": En transition (" + this.getCurrentCanton().getBeginStation().getName() + " - " + this.getCurrentCanton().getEndStation().getName() + ")");
+			}
 		}
-		else if (currentCanton == null){
+		else if (currentCanton == null && currentStation != null){
 			if (trace.getTrace().size() != 0){
 				if (!trace.getTrace().get(0).getOccupation()){
+					System.out.println("Train " + ID + ": Sorti de Gare (" + this.getCurrentStation().getName() + ")");
 					this.setCurrentCanton(trace.getTrace().get(0));
+					this.getCurrentCanton().setCurrentTrain(this);
 					this.getCurrentCanton().setOccupation(true);
 					this.setCurrentStation(null);
 				}
 			}
 			else{
 				arrived = true;
+				System.out.println("Train " + ID + ": Arrivé à destination");
+			}
+		}
+		else{
+			if (trace != null){
+				int nbCanton = this.getTrace().getTrace().size();
+				System.out.println("Train " + ID + ": De " + this.getTrace().getTrace().get(0).getBeginStation().getName() 
+						+ " à destination de " + this.getTrace().getTrace().get(nbCanton-1).getEndStation().getName());
+				this.setCurrentStation(trace.getTrace().get(0).getBeginStation());
 			}
 		}
 	}
