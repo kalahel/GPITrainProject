@@ -30,7 +30,9 @@ public class Run {
 				Line firstLine = network.getLines().get(0);
 				if(firstLine.getCantons().get(0).isFree()){
 					Train newTrain = tBuilder.creat();
+					int lastStation = firstLine.getStations().size();
 					newTrain.start();
+					newTrain.getTrace().setTrace(tBuilder.findTrace(firstLine.getStations().get(0), firstLine.getStations().get(lastStation), firstLine));
 				}
 			}
 		}

@@ -15,7 +15,7 @@ public class Clock extends Thread{
 	private CyclicCounter months;
 	private CyclicCounter years;
 	
-	private long speed;
+	public final static long speed = 50;
 	private boolean pause;
 	
 	public Clock(int hours, int min, int days, int mounths, int years){
@@ -26,7 +26,6 @@ public class Clock extends Thread{
 		this.months = new CyclicCounter(mounths, 1, 12);
 		this.years = new CyclicCounter(years, 2017, 2117);
 		
-		this.speed = 50;
 		this.pause = false;
 	}
 	
@@ -115,10 +114,6 @@ public class Clock extends Thread{
 
 	public long getSpeed() {
 		return speed;
-	}
-
-	public void setSpeed(long speed) {
-		this.speed = speed;
 	}
 
 	public boolean isPause() {

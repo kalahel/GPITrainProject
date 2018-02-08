@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.ucp.gpi.model.Canton;
 import com.ucp.gpi.model.Line;
 import com.ucp.gpi.model.Station;
+import com.ucp.gpi.model.Trace;
 import com.ucp.gpi.model.Train;
 
 public class TrainBuilder {
@@ -16,6 +17,7 @@ public class TrainBuilder {
 	
 	public Train creat(/* a venir */){
 		Train train = new Train();
+		train.setTrace(new Trace());
 		
 		train = basicInit(train);
 		
@@ -30,7 +32,7 @@ public class TrainBuilder {
 		return train;
 	}
 	
-	private ArrayList<Canton> findTrace(Station begin, Station end, Line line){
+	public ArrayList<Canton> findTrace(Station begin, Station end, Line line){
 		int i = 0;
 		
 		ArrayList<Canton> cantonPack = line.getCantons();

@@ -2,6 +2,7 @@ package com.ucp.gpi.model;
 
 import java.util.ArrayList;
 
+import com.ucp.gpi.clock.Clock;
 import com.ucp.gpi.utils.Coordinates;
 /**
  * 
@@ -23,13 +24,25 @@ public class Train extends Thread{
 	private int capacity;
 	private Coordinates coord;
 	private Trace trace;
+	private boolean arrived = false;
 	
 	public Train() {
 		
 	}
 	
-	public void start(){
-		/* commence ses actions */
+	@Override
+	public void run(){
+		while(!arrived){
+			try {
+				this.sleep(Clock.speed);
+			} catch (InterruptedException e) {
+				System.out.println("Train " + ID + " didn't sleep !");
+				e.printStackTrace();
+			}
+			if (trace != null){
+				this.updateProgression();
+			}
+		}
 	}
 	
 	/**
@@ -42,11 +55,25 @@ public class Train extends Thread{
 			
 			//if the train reach the end of the canton
 			if(progression >= 1){
+				this.getCurrentCanton().setOccupation(false);
+				this.getTrace().getTrace().remove(0);
 				this.setCurrentStation(currentCanton.getEndStation());
 				this.setCurrentCanton(null);
 				
 				progression = 0;
 				currentDistanceDone = 0;
+			}
+		}
+		else if (currentCanton == null){
+			if (trace.getTrace().size() != 0){
+				if (!trace.getTrace().get(0).getOccupation()){
+					this.setCurrentCanton(trace.getTrace().get(0));
+					this.getCurrentCanton().setOccupation(true);
+					this.setCurrentStation(null);
+				}
+			}
+			else{
+				arrived = true;
 			}
 		}
 	}
