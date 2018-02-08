@@ -1,10 +1,10 @@
 package com.ucp.gpi.frontend.data;
 
-public class Station {
+public class VisualTrain {
     private int posX;
     private int posY;
 
-    public Station(int posX, int posY) {
+    public VisualTrain(int posX, int posY) {
         this.posX = posX;
         this.posY = posY;
     }

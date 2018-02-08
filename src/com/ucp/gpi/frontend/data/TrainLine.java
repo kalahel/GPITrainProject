@@ -6,17 +6,17 @@ import java.util.ArrayList;
  * The train line will be a secession of canton in order
  */
 public class TrainLine {
-    private ArrayList<Canton> cantonList;
+    private ArrayList<VisualCanton> visualCantonList;
 
-    public TrainLine(ArrayList<Canton> cantonList) {
-        this.cantonList = cantonList;
+    public TrainLine(ArrayList<VisualCanton> visualCantonList) {
+        this.visualCantonList = visualCantonList;
     }
 
-    public void addCanton(Canton canton){
-        this.cantonList.add(canton);
+    public void addCanton(VisualCanton visualCanton){
+        this.visualCantonList.add(visualCanton);
     }
 
-    public ArrayList<Canton> getCantonList() {
-        return cantonList;
+    public ArrayList<VisualCanton> getVisualCantonList() {
+        return visualCantonList;
     }
 }

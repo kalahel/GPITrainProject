@@ -6,6 +6,8 @@ import com.intellij.uiDesigner.core.Spacer;
 import com.ucp.gpi.frontend.panels.Dashboard;
 import com.ucp.gpi.frontend.panels.Displayable;
 import com.ucp.gpi.frontend.panels.GraphicalPanel;
+import com.ucp.gpi.model.RailwayNetwork;
+import com.ucp.gpi.run.Run;
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
@@ -29,6 +31,7 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
     private JPanel rightBottomPanel;
     private JTextArea statsArea;
     private GraphicalPanel gPanel;
+    private RailwayNetwork railwayNetwork;
 
     public TrainFrame() {
         $$$setupUI$$$();
@@ -37,6 +40,10 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setContentPane(panel1);
         this.setResizable(false);
+
+        Run run = new Run(this);
+        Thread thread = new Thread(run);
+        thread.start();
 
         dashboard.setPreferredSize(new Dimension(Dashboard.DB_SIZE_X, Dashboard.DB_SIZE_Y));
 
@@ -52,7 +59,7 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
             @Override
             public void mouseClicked(MouseEvent e) {
                 dashboard.getStationFromClick(e);
-                refreshAll();
+                refreshAll(railwayNetwork);
             }
 
             @Override
@@ -102,21 +109,27 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
         if (e.getSource() == greenButton)
             System.out.println("Green");
         else if (e.getSource() == blueButton)
-            this.refreshPanel();
+            this.refreshPanel(railwayNetwork);
         else if (e.getSource() == purpleButton)
             System.out.println("Purple");
         else if (e.getSource() == orangeButton)
             System.out.println("Orange");
     }
 
-    public void refreshAll() {
-        refreshPanel();
+    @Override
+    public void refreshAll(RailwayNetwork railwayNetwork) {
+        refreshPanel(railwayNetwork);
         refreshStats();
         pack();
     }
 
     @Override
-    public void refreshPanel() {
+    public void setNetwork(RailwayNetwork railwayNetwork) {
+        this.railwayNetwork = railwayNetwork;
+    }
+
+    public void refreshPanel(RailwayNetwork railwayNetwork) {
+        dashboard.setRailwayNetwork(railwayNetwork);
         dashboard.repaint();
     }
 

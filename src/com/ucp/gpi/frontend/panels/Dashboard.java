@@ -1,9 +1,11 @@
 package com.ucp.gpi.frontend.panels;
 
-import com.ucp.gpi.frontend.data.Canton;
-import com.ucp.gpi.frontend.data.Station;
-import com.ucp.gpi.frontend.data.Train;
+import com.ucp.gpi.frontend.data.VisualCanton;
+import com.ucp.gpi.frontend.data.VisualStation;
+import com.ucp.gpi.frontend.data.VisualTrain;
 import com.ucp.gpi.frontend.data.TrainLine;
+import com.ucp.gpi.model.RailwayNetwork;
+import com.ucp.gpi.model.Station;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,26 +21,29 @@ public class Dashboard extends JPanel {
     private final Color TRAIN_COLOR = Color.decode("#F67280");
     public static final int DB_SIZE_X = 1000;
     public static final int DB_SIZE_Y = 400;
-
-    private boolean[][] adjacencyMatrix;
-    private int selectedStationIndex = -1;
-    private ArrayList<Station> stationsArray;
-    private ArrayList<Canton> cantonArray;
-    private ArrayList<TrainLine> trainLineArray;
-    private ArrayList<Train> trainsArray;
-
     private static final int STATION_SIZE = 15;
     private static final int TRAIN_SIZE = 10;
 
+    private boolean[][] adjacencyMatrix;
+    private int selectedStationIndex = -1;
+    private ArrayList<VisualStation> stationsArray;
+    private ArrayList<VisualCanton> visualCantonArray;
+    private ArrayList<TrainLine> trainLineArray;
+    private ArrayList<VisualTrain> trainsArray;
+    private RailwayNetwork railwayNetwork;
+    private boolean isSet;
+
     public Dashboard() {
-        this.adjacencyMatrix = matrixGeneration();
+        //TODO remove useless comments
+        //this.adjacencyMatrix = matrixGeneration();
         //this.stationsArray = positionGenerationFromMatrix();
         this.stationsArray = stationsGenerationFromNumber(6);
-        this.cantonArray = cantonGeneration();
+        this.visualCantonArray = cantonGeneration();
         //TODO remove those lines, only used for tests
-        this.trainsArray = new ArrayList<Train>();
-        this.trainsArray.add(singleTrainGeneration(cantonArray.get(cantonArray.size() - 1), 60));
+        this.trainsArray = new ArrayList<VisualTrain>();
+        //this.trainsArray.add(singleTrainGeneration(visualCantonArray.get(visualCantonArray.size() - 1), 60));
         //this.trainsArray.add(new Train(100,100));
+        isSet = false;
     }
 
 
@@ -52,7 +57,7 @@ public class Dashboard extends JPanel {
      * @param e MouseEvent
      */
     public void getStationFromClick(MouseEvent e) {
-        for (Station s : stationsArray)
+        for (VisualStation s : stationsArray)
             if (Math.abs(s.getPosX() - e.getX()) < STATION_SIZE && Math.abs(s.getPosY() - e.getY()) < STATION_SIZE) {
                 selectedStationIndex = stationsArray.indexOf(s);
                 return;
@@ -95,8 +100,8 @@ public class Dashboard extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(CANTON_COLOR);
         g2.setStroke(new BasicStroke(2));
-        for (Canton canton : cantonArray) {
-            g2.drawLine(canton.getInternalStation().getPosX(), canton.getInternalStation().getPosY(), canton.getExternalStation().getPosX(), canton.getExternalStation().getPosY());
+        for (VisualCanton visualCanton : visualCantonArray) {
+            g2.drawLine(visualCanton.getInternalVisualStation().getPosX(), visualCanton.getInternalVisualStation().getPosY(), visualCanton.getExternalVisualStation().getPosX(), visualCanton.getExternalVisualStation().getPosY());
         }
     }
 
@@ -116,6 +121,13 @@ public class Dashboard extends JPanel {
             g2.drawOval(stationsArray.get(index).getPosX() - (STATION_SIZE / 2), stationsArray.get(index).getPosY() - (STATION_SIZE / 2), STATION_SIZE, STATION_SIZE);
             g2.setColor(Color.WHITE);
             g2.drawString("" + (index + 1), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);
+
+            /* TODO add better repartition of station to allow better visibility of names
+            if (!isSet)
+                g2.drawString("" + (index + 1), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);
+            else
+                g2.drawString("" + stationsArray.get(index).getStation().getName(), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);
+            */
         }
 
     }
@@ -142,14 +154,14 @@ public class Dashboard extends JPanel {
      * @return Array of position of every station
      */
     @Deprecated
-    private ArrayList<Station> positionGenerationFromMatrix() {
-        ArrayList<Station> positionsToReturn = new ArrayList<>();
+    private ArrayList<VisualStation> positionGenerationFromMatrix() {
+        ArrayList<VisualStation> positionsToReturn = new ArrayList<>();
         int randomPosX, randomPosY;
 
         for (boolean b[] : this.adjacencyMatrix) {
             randomPosX = ThreadLocalRandom.current().nextInt(30, DB_SIZE_X + 1 - 30);
             randomPosY = ThreadLocalRandom.current().nextInt(30, DB_SIZE_Y + 1 - 30);
-            positionsToReturn.add(new Station(randomPosX, randomPosY));
+            positionsToReturn.add(new VisualStation(randomPosX, randomPosY));
         }
 
         return positionsToReturn;
@@ -162,43 +174,68 @@ public class Dashboard extends JPanel {
      * @param stationNumber Number of station to generate, will be obtain by the number of station generated by the engine
      * @return Array of position of every station
      */
-    private ArrayList<Station> stationsGenerationFromNumber(int stationNumber) {
-        ArrayList<Station> positionsToReturn = new ArrayList<>();
+    private ArrayList<VisualStation> stationsGenerationFromNumber(int stationNumber) {
+        ArrayList<VisualStation> positionsToReturn = new ArrayList<>();
         int posX, randomPosY, distance;
         distance = DB_SIZE_X / (stationNumber + 2);
 
         for (int index = 0; index < stationNumber; index++) {
             posX = (index + 1) * distance;
             randomPosY = ThreadLocalRandom.current().nextInt(30, DB_SIZE_Y + 1 - 30);
-            positionsToReturn.add(new Station(posX, randomPosY));
+            positionsToReturn.add(new VisualStation(posX, randomPosY));
         }
 
         return positionsToReturn;
     }
 
+
+    /**
+     * Generate an array of random positions in Y for each station
+     * And a fixed position in X
+     *
+     * @param stations The list of the stations contained in the RailwayNetwork
+     * @return the list of visual station generated
+     */
+    private ArrayList<VisualStation> stationsGenerationFromList(ArrayList<Station> stations) {
+        ArrayList<VisualStation> positionsToReturn = new ArrayList<>();
+        int posX, randomPosY, distance;
+        distance = DB_SIZE_X / (stations.size() + 2);
+
+        for (int index = 0; index < (stations.size()); index++) {
+            posX = (index + 1) * distance;
+            randomPosY = ThreadLocalRandom.current().nextInt(30, DB_SIZE_Y + 1 - 30);
+            positionsToReturn.add(new VisualStation(posX, randomPosY, stations.get(index)));
+        }
+
+        return positionsToReturn;
+    }
+
+
     /**
      * Generate a train object and put in the corresponding line with the corresponding progression
-     * @param canton Canton where the train is located
+     *
+     * @param visualCanton          Canton where the train is located
      * @param progressionPercentage Progression between the two station of the canton
      * @return The train created
      */
-    private Train singleTrainGeneration(Canton canton, int progressionPercentage) {
+    private VisualTrain singleTrainGeneration(VisualCanton visualCanton, int progressionPercentage) {
         int posX, posY, dX, dY;
-        dX = canton.getExternalStation().getPosX() - canton.getInternalStation().getPosX();
-        dY = canton.getExternalStation().getPosY() - canton.getInternalStation().getPosY();
-        posX = (int)(canton.getInternalStation().getPosX() + (dX * ((float)progressionPercentage / 100)));
-        posY = (int)(canton.getInternalStation().getPosY() + (dY * ((float)progressionPercentage / 100)));
-        return new Train(posX, posY);
+        dX = visualCanton.getExternalVisualStation().getPosX() - visualCanton.getInternalVisualStation().getPosX();
+        dY = visualCanton.getExternalVisualStation().getPosY() - visualCanton.getInternalVisualStation().getPosY();
+        posX = (int) (visualCanton.getInternalVisualStation().getPosX() + (dX * ((float) progressionPercentage / 100)));
+        posY = (int) (visualCanton.getInternalVisualStation().getPosY() + (dY * ((float) progressionPercentage / 100)));
+        return new VisualTrain(posX, posY);
     }
 
     /**
      * Generate an array of canton based on the array of stations
+     *
      * @return The array of cantons
      */
-    private ArrayList<Canton> cantonGeneration() {
-        ArrayList<Canton> listToReturn = new ArrayList<>();
+    private ArrayList<VisualCanton> cantonGeneration() {
+        ArrayList<VisualCanton> listToReturn = new ArrayList<>();
         for (int index = 0; index < (stationsArray.size() - 1); index++) {
-            listToReturn.add(new Canton(stationsArray.get(index), stationsArray.get(index + 1)));
+            listToReturn.add(new VisualCanton(stationsArray.get(index), stationsArray.get(index + 1)));
         }
         return listToReturn;
     }
@@ -218,4 +255,13 @@ public class Dashboard extends JPanel {
         };
     }
 
+    public void setRailwayNetwork(RailwayNetwork railwayNetwork) {
+        this.railwayNetwork = railwayNetwork;
+        if (!isSet) {
+            //TODO add check for multiple lines
+            this.stationsArray = stationsGenerationFromList(railwayNetwork.getLines().get(0).getStations());
+            this.visualCantonArray = cantonGeneration();
+            isSet = true;
+        }
+    }
 }
