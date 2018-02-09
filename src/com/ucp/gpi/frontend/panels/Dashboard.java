@@ -5,6 +5,7 @@ import com.ucp.gpi.frontend.data.VisualCanton;
 import com.ucp.gpi.frontend.data.VisualStation;
 import com.ucp.gpi.frontend.data.VisualTrain;
 import com.ucp.gpi.frontend.data.TrainLine;
+import com.ucp.gpi.model.Canton;
 import com.ucp.gpi.model.RailwayNetwork;
 import com.ucp.gpi.model.Station;
 import com.ucp.gpi.model.Train;
@@ -228,8 +229,8 @@ public class Dashboard extends JPanel {
         int posX, posY, dX, dY;
         dX = visualCanton.getExternalVisualStation().getPosX() - visualCanton.getInternalVisualStation().getPosX();
         dY = visualCanton.getExternalVisualStation().getPosY() - visualCanton.getInternalVisualStation().getPosY();
-        posX = (int) (visualCanton.getInternalVisualStation().getPosX() + (dX * ( progressionPercentage )));
-        posY = (int) (visualCanton.getInternalVisualStation().getPosY() + (dY * ( progressionPercentage )));
+        posX = (int) (visualCanton.getInternalVisualStation().getPosX() + (dX * (progressionPercentage)));
+        posY = (int) (visualCanton.getInternalVisualStation().getPosY() + (dY * (progressionPercentage)));
         return new VisualTrain(posX, posY);
     }
 
@@ -271,6 +272,8 @@ public class Dashboard extends JPanel {
                 visualCantonArray.get(index).setCanton(railwayNetwork.getLines().get(0).getCantons().get(index));
             }
             isSet = true;
+            testCantonValidity();
+            testCantonNumber(railwayNetwork.getLines().get(0).getCantons());
         }
 //        this.trainsArray = new ArrayList<>();
 //        for(VisualCanton visualCanton : visualCantonArray){
@@ -281,6 +284,40 @@ public class Dashboard extends JPanel {
 //        for(Train train : railwayNetwork.getLines().get(0).getTrains()){
 //            System.out.println("Train position :" + train.getCurrentCanton().getID());
 //        }
+    }
+
+    /**
+     * Test if the visual canton information matches with the backend corresponding canton information
+     * @return result of the test
+     */
+    private boolean testCantonValidity() {
+        for (int index = 0; index < visualCantonArray.size(); index++) {
+            if (!visualCantonArray.get(index).getCanton().getBeginStation().equals(visualCantonArray.get(index).getInternalVisualStation().getStation())) {
+                System.out.println("##### INCORRECT INTERNAL STATION #####\nCANTON : " + index + "#####\t#####\n");
+                return false;
+            }
+            if (!visualCantonArray.get(index).getCanton().getEndStation().equals(visualCantonArray.get(index).getExternalVisualStation().getStation())) {
+                System.out.println("##### INCORRECT EXTERNAL STATION #####\nCANTON : " + index + "#####\t#####\n");
+                return false;
+            }
+        }
+        System.out.println("##### CANTON MATCHES SUCCESSFULLY #####\n");
+
+        return true;
+    }
+
+    /**
+     * Test if the number of backend and frontend cantons match
+     * @param cantons list of backend canton currently in use
+     * @return result of the test
+     */
+    private boolean testCantonNumber(ArrayList<Canton> cantons){
+        if(visualCantonArray.size() ==  cantons.size()){
+            System.out.println("##### CANTON NUMBER MATCHES SUCCESSFULLY #####\n");
+            return true;
+        }
+        System.out.println("##### CANTON NUMBER DOES NOT MATCHES#####\n##### VISUAL SIZE : " + visualCantonArray.size() + " ,BACKEND SIZE : " + cantons.size() + " ######\n");
+        return false;
     }
 
     public boolean isSet() {
