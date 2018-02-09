@@ -1,19 +1,18 @@
 package com.ucp.gpi.backend.builders;
 
+import com.ucp.gpi.backend.model.Canton;
+import com.ucp.gpi.backend.model.Line;
+import com.ucp.gpi.backend.model.Station;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
-
-import com.ucp.gpi.backend.model.Canton;
-import com.ucp.gpi.backend.model.Line;
-import com.ucp.gpi.backend.model.Station;
 
 /**
  * 
