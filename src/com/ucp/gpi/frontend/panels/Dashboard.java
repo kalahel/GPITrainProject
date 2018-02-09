@@ -1,11 +1,14 @@
 package com.ucp.gpi.frontend.panels;
 
+import com.ucp.gpi.builders.TrainBuilder;
 import com.ucp.gpi.frontend.data.VisualCanton;
 import com.ucp.gpi.frontend.data.VisualStation;
 import com.ucp.gpi.frontend.data.VisualTrain;
 import com.ucp.gpi.frontend.data.TrainLine;
 import com.ucp.gpi.model.RailwayNetwork;
 import com.ucp.gpi.model.Station;
+import com.ucp.gpi.model.Train;
+import org.jfree.util.Log;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,12 +29,13 @@ public class Dashboard extends JPanel {
 
     private boolean[][] adjacencyMatrix;
     private int selectedStationIndex = -1;
+    private VisualStation selectedStation;
     private ArrayList<VisualStation> stationsArray;
     private ArrayList<VisualCanton> visualCantonArray;
     private ArrayList<TrainLine> trainLineArray;
     private ArrayList<VisualTrain> trainsArray;
     private RailwayNetwork railwayNetwork;
-    private boolean isSet;
+    private boolean isSet, selectedOnce;
 
     public Dashboard() {
         //TODO remove useless comments
@@ -44,6 +48,7 @@ public class Dashboard extends JPanel {
         //this.trainsArray.add(singleTrainGeneration(visualCantonArray.get(visualCantonArray.size() - 1), 60));
         //this.trainsArray.add(new Train(100,100));
         isSet = false;
+        selectedOnce = false;
     }
 
 
@@ -60,6 +65,8 @@ public class Dashboard extends JPanel {
         for (VisualStation s : stationsArray)
             if (Math.abs(s.getPosX() - e.getX()) < STATION_SIZE && Math.abs(s.getPosY() - e.getY()) < STATION_SIZE) {
                 selectedStationIndex = stationsArray.indexOf(s);
+                selectedStation = stationsArray.get(selectedStationIndex);
+                selectedOnce = true;
                 return;
             }
     }
@@ -120,14 +127,13 @@ public class Dashboard extends JPanel {
                 g2.setColor(STATION_COLOR);
             g2.drawOval(stationsArray.get(index).getPosX() - (STATION_SIZE / 2), stationsArray.get(index).getPosY() - (STATION_SIZE / 2), STATION_SIZE, STATION_SIZE);
             g2.setColor(Color.WHITE);
-            g2.drawString("" + (index + 1), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);
 
-            /* TODO add better repartition of station to allow better visibility of names
-            if (!isSet)
-                g2.drawString("" + (index + 1), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);
-            else
+
+            if (isSet && stationsArray.size() < 20)
                 g2.drawString("" + stationsArray.get(index).getStation().getName(), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);
-            */
+            else
+                g2.drawString("" + (index + 1), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);
+
         }
 
     }
@@ -218,12 +224,12 @@ public class Dashboard extends JPanel {
      * @param progressionPercentage Progression between the two station of the canton
      * @return The train created
      */
-    private VisualTrain singleTrainGeneration(VisualCanton visualCanton, int progressionPercentage) {
+    private VisualTrain singleTrainGeneration(VisualCanton visualCanton, double progressionPercentage) {
         int posX, posY, dX, dY;
         dX = visualCanton.getExternalVisualStation().getPosX() - visualCanton.getInternalVisualStation().getPosX();
         dY = visualCanton.getExternalVisualStation().getPosY() - visualCanton.getInternalVisualStation().getPosY();
-        posX = (int) (visualCanton.getInternalVisualStation().getPosX() + (dX * ((float) progressionPercentage / 100)));
-        posY = (int) (visualCanton.getInternalVisualStation().getPosY() + (dY * ((float) progressionPercentage / 100)));
+        posX = (int) (visualCanton.getInternalVisualStation().getPosX() + (dX * ( progressionPercentage )));
+        posY = (int) (visualCanton.getInternalVisualStation().getPosY() + (dY * ( progressionPercentage )));
         return new VisualTrain(posX, posY);
     }
 
@@ -259,9 +265,33 @@ public class Dashboard extends JPanel {
         this.railwayNetwork = railwayNetwork;
         if (!isSet) {
             //TODO add check for multiple lines
-            this.stationsArray = stationsGenerationFromList(railwayNetwork.getLines().get(0).getStations());
-            this.visualCantonArray = cantonGeneration();
+            stationsArray = stationsGenerationFromList(railwayNetwork.getLines().get(0).getStations());
+            visualCantonArray = cantonGeneration();
+            for (int index = 0; index < visualCantonArray.size(); index++) {
+                visualCantonArray.get(index).setCanton(railwayNetwork.getLines().get(0).getCantons().get(index));
+            }
             isSet = true;
         }
+//        this.trainsArray = new ArrayList<>();
+//        for(VisualCanton visualCanton : visualCantonArray){
+//            if(!visualCanton.getCanton().isFree()){
+//                singleTrainGeneration(visualCanton,(int) (visualCanton.getCanton().getCurrentTrain().getProgression() * 100));
+//            }
+//        }
+//        for(Train train : railwayNetwork.getLines().get(0).getTrains()){
+//            System.out.println("Train position :" + train.getCurrentCanton().getID());
+//        }
+    }
+
+    public boolean isSet() {
+        return isSet;
+    }
+
+    public boolean isSelectedOnce() {
+        return selectedOnce;
+    }
+
+    public VisualStation getSelectedStation() {
+        return selectedStation;
     }
 }

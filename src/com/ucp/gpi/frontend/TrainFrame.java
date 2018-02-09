@@ -135,7 +135,10 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
 
     public void refreshStats() {
         String text = "";
-        text += "Station sélectionnée : " + (dashboard.getSelectedStationIndex() + 1);
+        if (dashboard.isSet() && dashboard.isSelectedOnce())
+            text += "Station sélectionnée : " + (dashboard.getSelectedStation().getStation().getName());
+        else
+            text += "Station sélectionnée : " + (dashboard.getSelectedStationIndex() + 1);
         text += "\nSatisfaction moyenne : X";
         text += "\nOccupation moyenne des trains et des gares : X";
         text += "\nNombre de passagers actuel : X";

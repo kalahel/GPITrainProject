@@ -1,10 +1,13 @@
 package com.ucp.gpi.frontend.data;
 
+import com.ucp.gpi.model.Canton;
+
 /**
  * A Canton is a link between two station
  */
 public class VisualCanton {
     private VisualStation internalVisualStation, externalVisualStation;
+    private Canton canton;
 
     /**
      *
@@ -30,5 +33,13 @@ public class VisualCanton {
 
     public void setExternalVisualStation(VisualStation externalVisualStation) {
         this.externalVisualStation = externalVisualStation;
+    }
+
+    public Canton getCanton() {
+        return canton;
+    }
+
+    public void setCanton(Canton canton) {
+        this.canton = canton;
     }
 }
