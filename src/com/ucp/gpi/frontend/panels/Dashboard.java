@@ -1,6 +1,7 @@
 package com.ucp.gpi.frontend.panels;
 
 import com.ucp.gpi.builders.TrainBuilder;
+import com.ucp.gpi.frontend.TrainFrame;
 import com.ucp.gpi.frontend.data.VisualCanton;
 import com.ucp.gpi.frontend.data.VisualStation;
 import com.ucp.gpi.frontend.data.VisualTrain;
@@ -75,11 +76,17 @@ public class Dashboard extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if(TrainFrame.DEBUG_MODE)
+            System.out.println("**** REPAINTING COMPONENTS *****");
         Graphics2D g2 = (Graphics2D) g;
-        //printCantonFromMatrix(g2);
         paintCantonFromArray(g2);
         paintStations(g2);
         paintTrains(g2);
+    }
+
+    @Override
+    public void repaint() {
+        super.repaint();
     }
 
     /**
@@ -147,9 +154,13 @@ public class Dashboard extends JPanel {
     private void paintTrains(Graphics2D g2) {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setStroke(new BasicStroke(4));
+        if(TrainFrame.DEBUG_MODE)
+            System.out.println("***** PRINT TRAINS *****");
         for (int index = 0; index < this.trainsArray.size(); index++) {
             g2.setColor(TRAIN_COLOR);
             g2.drawRect(trainsArray.get(index).getPosX() - (TRAIN_SIZE / 2), trainsArray.get(index).getPosY() - (TRAIN_SIZE / 2), TRAIN_SIZE, TRAIN_SIZE);
+            if(TrainFrame.DEBUG_MODE)
+                System.out.println("***** PRINTED TRAIN X : " + trainsArray.get(index).getPosX() + " Y : " + trainsArray.get(index).getPosY() + " *****");
 
         }
     }
@@ -275,19 +286,23 @@ public class Dashboard extends JPanel {
             testCantonValidity();
             testCantonNumber(railwayNetwork.getLines().get(0).getCantons());
         }
-//        this.trainsArray = new ArrayList<>();
-//        for(VisualCanton visualCanton : visualCantonArray){
-//            if(!visualCanton.getCanton().isFree()){
-//                singleTrainGeneration(visualCanton,(int) (visualCanton.getCanton().getCurrentTrain().getProgression() * 100));
-//            }
-//        }
-//        for(Train train : railwayNetwork.getLines().get(0).getTrains()){
-//            System.out.println("Train position :" + train.getCurrentCanton().getID());
-//        }
+        if (TrainFrame.DEBUG_MODE)
+            printTrainsInfos(railwayNetwork.getLines().get(0).getTrains());
+
+        this.trainsArray = new ArrayList<>();
+        for(VisualCanton visualCanton : visualCantonArray){
+            if(!visualCanton.getCanton().isFree()){
+                trainsArray.add(singleTrainGeneration(visualCanton,(visualCanton.getCanton().getCurrentTrain().getProgression())));
+                if(TrainFrame.DEBUG_MODE)
+                    System.out.println("++++ ADDED TRAIN TO THE LIST ++++");
+            }
+        }
+
     }
 
     /**
      * Test if the visual canton information matches with the backend corresponding canton information
+     *
      * @return result of the test
      */
     private boolean testCantonValidity() {
@@ -308,16 +323,37 @@ public class Dashboard extends JPanel {
 
     /**
      * Test if the number of backend and frontend cantons match
+     *
      * @param cantons list of backend canton currently in use
      * @return result of the test
      */
-    private boolean testCantonNumber(ArrayList<Canton> cantons){
-        if(visualCantonArray.size() ==  cantons.size()){
+    private boolean testCantonNumber(ArrayList<Canton> cantons) {
+        if (visualCantonArray.size() == cantons.size()) {
             System.out.println("##### CANTON NUMBER MATCHES SUCCESSFULLY #####\n");
             return true;
         }
         System.out.println("##### CANTON NUMBER DOES NOT MATCHES#####\n##### VISUAL SIZE : " + visualCantonArray.size() + " ,BACKEND SIZE : " + cantons.size() + " ######\n");
         return false;
+    }
+
+    /**
+     * Print the data of all available trains
+     *
+     * @param trains list of train in reach of the dashboard
+     */
+    private void printTrainsInfos(ArrayList<Train> trains) {
+        System.out.println("\n&&&&& TRAINS INFO UPDATE &&&&&");
+
+        for (int index = 0; index < trains.size(); index++) {
+            System.out.println("Train : " + index + " ");
+            if (!(trains.get(index).getCurrentCanton() == null)) {
+                System.out.println("Canton : " + trains.get(index).getCurrentCanton().getID() + " Between : " + trains.get(index).getCurrentCanton().getBeginStation().getName() + " and " + trains.get(index).getCurrentCanton().getEndStation().getName());
+            }
+            if (!(trains.get(index).getCurrentStation() == null)) {
+                System.out.println("Station : " + trains.get(index).getCurrentStation().getName());
+            }
+        }
+        System.out.println("&&&& END INFO &&&&&\n");
     }
 
     public boolean isSet() {

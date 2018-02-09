@@ -32,6 +32,8 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
     private JTextArea statsArea;
     private GraphicalPanel gPanel;
     private RailwayNetwork railwayNetwork;
+    public static final boolean DEBUG_MODE = true;
+
 
     public TrainFrame() {
         $$$setupUI$$$();
@@ -118,9 +120,12 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
 
     @Override
     public void refreshAll(RailwayNetwork railwayNetwork) {
+        if (DEBUG_MODE)
+            System.out.println("////////// REFRESH ALL //////////");
         refreshPanel(railwayNetwork);
         refreshStats();
         pack();
+
     }
 
     @Override
@@ -130,6 +135,7 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
 
     public void refreshPanel(RailwayNetwork railwayNetwork) {
         dashboard.setRailwayNetwork(railwayNetwork);
+
         dashboard.repaint();
     }
 

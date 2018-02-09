@@ -10,7 +10,7 @@ import com.ucp.gpi.model.Train;
 
 public class Run implements Runnable {
 
-    private static final int TRAIN_FREQ = 1000;
+    private static final int TRAIN_FREQ = 1;
     private static final int DURATION = 1000;
 
     private RailwayNetwork network;
@@ -33,11 +33,11 @@ public class Run implements Runnable {
         RailwayNetwork network = netBuilder.creat(1);
         TrainBuilder tBuilder = new TrainBuilder();
         Line firstLine = network.getLines().get(0);
-        if(this.isDisplayed)
+        if (this.isDisplayed)
             this.displayable.setNetwork(network);
 
         int nbTrain = 0;
-        while (nbTrain < 3) {
+        while (true) {
             if (firstLine.getCantons().get(0).isFree()) {
                 Train newTrain = tBuilder.creat(firstLine);
                 int lastStation = firstLine.getStations().size();
@@ -49,9 +49,10 @@ public class Run implements Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (this.isDisplayed) {
-                    this.displayable.refreshAll(network);
-                }
+
+            }
+            if (this.isDisplayed) {
+                this.displayable.refreshAll(network);
             }
         }
     }
