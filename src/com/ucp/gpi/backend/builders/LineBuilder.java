@@ -24,7 +24,7 @@ import com.ucp.gpi.backend.model.Station;
 public class LineBuilder {
 	
 	private static final String[] LINERERMAPPING = {"Code_UIC", "Libelle_point_arret", "train", "RER", "tram", "bus", "A", "B", "C", "D", "E", "F", "H", "J", "K", "L", "N", "P", "R", "U", "T4", "TER", "T11"};
-	private static final String LINERERPATH = System.getProperty("user.dir") + "/src/com/ucp/gpi/res/lignes-par-gare-sur-le-reseau-transilien.csv";
+	private static final String LINERERPATH = System.getProperty("user.dir") + "/src/com/ucp/gpi/backend/res/lignes-par-gare-sur-le-reseau-transilien.csv";
 
 	
 	public LineBuilder() {
