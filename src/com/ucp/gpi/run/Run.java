@@ -10,7 +10,7 @@ import com.ucp.gpi.model.Train;
 
 public class Run implements Runnable {
 
-    private static final int TRAIN_FREQ = 1;
+    private static final int TRAIN_FREQ = 100;
     private static final int DURATION = 1000;
 
     private RailwayNetwork network;

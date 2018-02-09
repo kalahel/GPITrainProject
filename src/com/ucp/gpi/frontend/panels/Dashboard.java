@@ -37,20 +37,15 @@ public class Dashboard extends JPanel {
     private ArrayList<TrainLine> trainLineArray;
     private ArrayList<VisualTrain> trainsArray;
     private RailwayNetwork railwayNetwork;
-    private boolean isSet, selectedOnce;
+    private boolean isSet, selectedOnce, isLocked;
 
     public Dashboard() {
-        //TODO remove useless comments
-        //this.adjacencyMatrix = matrixGeneration();
-        //this.stationsArray = positionGenerationFromMatrix();
-        this.stationsArray = stationsGenerationFromNumber(6);
+        this.stationsArray = stationsGenerationFromNumber(0);
         this.visualCantonArray = cantonGeneration();
-        //TODO remove those lines, only used for tests
         this.trainsArray = new ArrayList<VisualTrain>();
-        //this.trainsArray.add(singleTrainGeneration(visualCantonArray.get(visualCantonArray.size() - 1), 60));
-        //this.trainsArray.add(new Train(100,100));
         isSet = false;
         selectedOnce = false;
+        isLocked = false;
     }
 
 
@@ -76,7 +71,7 @@ public class Dashboard extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(TrainFrame.DEBUG_MODE)
+        if (TrainFrame.DEBUG_MODE)
             System.out.println("**** REPAINTING COMPONENTS *****");
         Graphics2D g2 = (Graphics2D) g;
         paintCantonFromArray(g2);
@@ -148,21 +143,23 @@ public class Dashboard extends JPanel {
 
     /**
      * Draw a rectangle for each station according to its position
+     * Lock the updating process preventing concurring access
      *
      * @param g2 2d Graphics
      */
     private void paintTrains(Graphics2D g2) {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setStroke(new BasicStroke(4));
-        if(TrainFrame.DEBUG_MODE)
+        if (TrainFrame.DEBUG_MODE)
             System.out.println("***** PRINT TRAINS *****");
+        isLocked = true;
         for (int index = 0; index < this.trainsArray.size(); index++) {
             g2.setColor(TRAIN_COLOR);
             g2.drawRect(trainsArray.get(index).getPosX() - (TRAIN_SIZE / 2), trainsArray.get(index).getPosY() - (TRAIN_SIZE / 2), TRAIN_SIZE, TRAIN_SIZE);
-            if(TrainFrame.DEBUG_MODE)
+            if (TrainFrame.DEBUG_MODE)
                 System.out.println("***** PRINTED TRAIN X : " + trainsArray.get(index).getPosX() + " Y : " + trainsArray.get(index).getPosY() + " *****");
-
         }
+        isLocked = false;
     }
 
 
@@ -230,7 +227,7 @@ public class Dashboard extends JPanel {
 
 
     /**
-     * Generate a train object and put in the corresponding line with the corresponding progression
+     * Generate a train object and put in the corresponding canton with the corresponding progression
      *
      * @param visualCanton          Canton where the train is located
      * @param progressionPercentage Progression between the two station of the canton
@@ -273,6 +270,12 @@ public class Dashboard extends JPanel {
         };
     }
 
+    /**
+     * Responsible for updating information on elements to draw
+     * Some will be done only once : Station and Canton
+     * Other will be repeated : Trains
+     * @param railwayNetwork Backend engine
+     */
     public void setRailwayNetwork(RailwayNetwork railwayNetwork) {
         this.railwayNetwork = railwayNetwork;
         if (!isSet) {
@@ -289,12 +292,15 @@ public class Dashboard extends JPanel {
         if (TrainFrame.DEBUG_MODE)
             printTrainsInfos(railwayNetwork.getLines().get(0).getTrains());
 
-        this.trainsArray = new ArrayList<>();
-        for(VisualCanton visualCanton : visualCantonArray){
-            if(!visualCanton.getCanton().isFree()){
-                trainsArray.add(singleTrainGeneration(visualCanton,(visualCanton.getCanton().getCurrentTrain().getProgression())));
-                if(TrainFrame.DEBUG_MODE)
-                    System.out.println("++++ ADDED TRAIN TO THE LIST ++++");
+        // the train list can not be modified while it is rendered
+        if (!isLocked) {
+            this.trainsArray = new ArrayList<>();
+            for (VisualCanton visualCanton : visualCantonArray) {
+                if (!visualCanton.getCanton().isFree()) {
+                    trainsArray.add(singleTrainGeneration(visualCanton, (visualCanton.getCanton().getCurrentTrain().getProgression())));
+                    if (TrainFrame.DEBUG_MODE)
+                        System.out.println("++++ ADDED TRAIN TO THE LIST ++++");
+                }
             }
         }
 
