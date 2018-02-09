@@ -14,7 +14,25 @@ public class TrainBuilder {
 	public TrainBuilder(){
 		
 	}
-	
+
+    /**
+     * This method will be usefull to test the Train object
+     * @param ID is the String given to the train
+     * @param capacity is the integer given to the train
+     * @return return a train object
+     */
+	public Train testValues(String ID,int capacity){
+	    Train train = new Train();
+	    train.setID(ID);
+	    train.setCapacity(capacity);
+	    train.setProgression(0);
+	    train.setCurrentDistanceDone(0);
+	    train.setNbUsers(0);
+
+
+	    return train;
+    }
+
 	public Train creat(Line line){
 		Train train = new Train();
 		int lastStation = line.getStations().size();

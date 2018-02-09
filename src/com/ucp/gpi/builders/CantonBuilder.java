@@ -34,4 +34,22 @@ public class CantonBuilder {
 		
 		return canton;
 	}
+
+	/**
+	 * This class will be useful for the tests
+	 * @param ID is the new ID of the canton
+	 * @param occupation is the boolean to check if the canton has a train
+	 * @param lenght is the new lenght of the canton
+	 * @param speed is the train's speed of this current canton
+	 * @return a canton for the CantonTest class
+	 */
+	public Canton testCanton(String ID,Boolean occupation,double lenght,int speed){
+		Canton canton = new Canton();
+		canton.setOccupation(occupation);
+		canton.setID(ID);
+		canton.setLenght(lenght);
+		canton.setSpeed(speed);
+
+		return canton;
+	}
 }

@@ -9,7 +9,7 @@ public class TestBuilding {
 		// TODO Auto-generated method stub
 		LineBuilder lb = new LineBuilder();
 		Line l = new Line();
-		l = lb.creatLineFromFile("A");
+		l = lb.creatLineFromFile("B");
 		
 		for(int i=0; i<l.getNb_stations(); i++) {
 			if(i != (l.getNb_stations()-1)) {

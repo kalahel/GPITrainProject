@@ -88,4 +88,30 @@ public class LineBuilder {
 		
 		return line;
 	}
+
+	/**
+	 * This method will create a Line object that will be useful for the tests
+	 * @param ID is the new ID of the line
+	 * @param Name is the new name of the line
+	 * @param nbStation is the number of station of the line
+	 * @param nbCanton is the number of canton of the line
+	 * @param Color is the color of the line
+	 * @param nbTrain is the number of train of the line
+	 * @param Capacity is the capacity of the line
+	 * @param nbUser is the number of user of the line
+	 * @return a line object that will be used in the testLine class
+	 */
+	public Line testLine(String ID,String Name,int nbStation,int nbCanton, String Color,int nbTrain,int Capacity,int nbUser){
+		Line line = new Line();
+		line.setID(ID);
+		line.setName(Name);
+		line.setNb_cantons(nbCanton);
+		line.setNb_stations(nbStation);
+		line.setCapacity(Capacity);
+		line.setNbUser(nbUser);
+		line.setColor(Color);
+		line.setNb_train(nbTrain);
+
+		return line;
+	}
 }
