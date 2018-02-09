@@ -1,6 +1,6 @@
 package com.ucp.gpi.frontend.data;
 
-import com.ucp.gpi.model.Canton;
+import com.ucp.gpi.backend.model.Canton;
 
 /**
  * A Canton is a link between two station

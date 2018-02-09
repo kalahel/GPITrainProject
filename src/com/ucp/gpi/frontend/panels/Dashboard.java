@@ -1,16 +1,14 @@
 package com.ucp.gpi.frontend.panels;
 
-import com.ucp.gpi.builders.TrainBuilder;
 import com.ucp.gpi.frontend.TrainFrame;
 import com.ucp.gpi.frontend.data.VisualCanton;
 import com.ucp.gpi.frontend.data.VisualStation;
 import com.ucp.gpi.frontend.data.VisualTrain;
 import com.ucp.gpi.frontend.data.TrainLine;
-import com.ucp.gpi.model.Canton;
-import com.ucp.gpi.model.RailwayNetwork;
-import com.ucp.gpi.model.Station;
-import com.ucp.gpi.model.Train;
-import org.jfree.util.Log;
+import com.ucp.gpi.backend.model.Canton;
+import com.ucp.gpi.backend.model.RailwayNetwork;
+import com.ucp.gpi.backend.model.Station;
+import com.ucp.gpi.backend.model.Train;
 
 import javax.swing.*;
 import java.awt.*;

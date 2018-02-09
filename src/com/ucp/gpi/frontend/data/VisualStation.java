@@ -1,6 +1,6 @@
 package com.ucp.gpi.frontend.data;
 
-import com.ucp.gpi.model.Station;
+import com.ucp.gpi.backend.model.Station;
 
 public class VisualStation {
     private int posX;
