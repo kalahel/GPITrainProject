@@ -1,14 +1,14 @@
 package com.ucp.gpi.frontend.panels;
 
-import com.ucp.gpi.frontend.TrainFrame;
-import com.ucp.gpi.frontend.data.VisualCanton;
-import com.ucp.gpi.frontend.data.VisualStation;
-import com.ucp.gpi.frontend.data.VisualTrain;
-import com.ucp.gpi.frontend.data.TrainLine;
 import com.ucp.gpi.backend.model.Canton;
 import com.ucp.gpi.backend.model.RailwayNetwork;
 import com.ucp.gpi.backend.model.Station;
 import com.ucp.gpi.backend.model.Train;
+import com.ucp.gpi.frontend.TrainFrame;
+import com.ucp.gpi.frontend.data.TrainLine;
+import com.ucp.gpi.frontend.data.VisualCanton;
+import com.ucp.gpi.frontend.data.VisualStation;
+import com.ucp.gpi.frontend.data.VisualTrain;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +20,7 @@ public class Dashboard extends JPanel {
 
     private final Color CANTON_COLOR = Color.decode("#29B6F6");
     private final Color STATION_COLOR = new Color(255, 167, 38);
+    private final Color BACKGROUND_COLOR = Color.decode("#3C3F41");
     private final Color SELECTED_STATION_COLOR = Color.WHITE;
     private final Color TRAIN_COLOR = Color.decode("#F67280");
     public static final int DB_SIZE_X = 1000;
@@ -122,6 +123,8 @@ public class Dashboard extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setStroke(new BasicStroke(4));
         for (int index = 0; index < this.stationsArray.size(); index++) {
+            g2.setColor(BACKGROUND_COLOR);
+            g2.fillOval(stationsArray.get(index).getPosX() - (STATION_SIZE / 2), stationsArray.get(index).getPosY() - (STATION_SIZE / 2), STATION_SIZE, STATION_SIZE);
             if (index == selectedStationIndex)
                 g2.setColor(SELECTED_STATION_COLOR);
             else
