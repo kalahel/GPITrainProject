@@ -31,13 +31,13 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
     private JPanel rightBottomPanel;
     private JTextArea statsArea;
     private GraphicalPanel gPanel;
-    private RailwayNetwork railwayNetwork;
+    private RailwayNetwork railwayNetwork; //test
     public static final boolean DEBUG_MODE = false;
 
 
     public TrainFrame() {
         $$$setupUI$$$();
-        this.setTitle("Train Simulator 2018");
+        this.setTitle("Project TrainSimulator GPI 2018");
         this.setIconImage(Swinger.getResource("logo.png"));
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setContentPane(panel1);
@@ -61,7 +61,6 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
             @Override
             public void mouseClicked(MouseEvent e) {
                 dashboard.getStationFromClick(e);
-                refreshAll(railwayNetwork);
             }
 
             @Override
@@ -125,7 +124,6 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
         refreshPanel(railwayNetwork);
         refreshStats();
         pack();
-
     }
 
     @Override
