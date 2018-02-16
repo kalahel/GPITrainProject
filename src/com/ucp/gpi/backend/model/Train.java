@@ -65,7 +65,7 @@ public class Train extends Thread{
 				currentDistanceDone = 0;
 			}
 			else{
-				//System.out.println("Train " + ID + ": En transition (" + this.getCurrentCanton().getBeginStation().getName() + " - " + this.getCurrentCanton().getEndStation().getName() + ")");
+				System.out.println("Train " + ID + ": En transition (" + this.getCurrentCanton().getBeginStation().getName() + " - " + this.getCurrentCanton().getEndStation().getName() + ")");
 			}
 		}
 		else if (currentCanton == null && currentStation != null){
