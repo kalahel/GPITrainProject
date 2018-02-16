@@ -3,11 +3,11 @@ package com.ucp.gpi.frontend;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import com.ucp.gpi.backend.model.RailwayNetwork;
+import com.ucp.gpi.backend.run.Run;
 import com.ucp.gpi.frontend.panels.Dashboard;
 import com.ucp.gpi.frontend.panels.Displayable;
 import com.ucp.gpi.frontend.panels.GraphicalPanel;
-import com.ucp.gpi.backend.model.RailwayNetwork;
-import com.ucp.gpi.backend.run.Run;
 import fr.theshark34.swinger.Swinger;
 import fr.theshark34.swinger.event.SwingerEvent;
 import fr.theshark34.swinger.event.SwingerEventListener;
@@ -61,7 +61,6 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
             @Override
             public void mouseClicked(MouseEvent e) {
                 dashboard.getStationFromClick(e);
-                refreshAll(railwayNetwork);
             }
 
             @Override
