@@ -275,6 +275,7 @@ public class Dashboard extends JPanel {
      * Responsible for updating information on elements to draw
      * Some will be done only once : Station and Canton
      * Other will be repeated : Trains
+     *
      * @param railwayNetwork Backend engine
      */
     public void setRailwayNetwork(RailwayNetwork railwayNetwork) {
