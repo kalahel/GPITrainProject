@@ -61,7 +61,6 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
             @Override
             public void mouseClicked(MouseEvent e) {
                 dashboard.getStationFromClick(e);
-                refreshAll(railwayNetwork);
             }
 
             @Override
