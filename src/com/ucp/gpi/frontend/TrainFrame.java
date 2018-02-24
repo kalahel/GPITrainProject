@@ -21,6 +21,7 @@ import java.awt.event.MouseListener;
 
 public class TrainFrame extends JFrame implements SwingerEventListener, Displayable {
 
+    public static final boolean DEBUG_MODE = false;
     private JPanel panel1;
     private Dashboard dashboard;
     private JPanel leftBottomPanel;
@@ -32,7 +33,6 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
     private JTextArea statsArea;
     private GraphicalPanel gPanel;
     private RailwayNetwork railwayNetwork;
-    public static final boolean DEBUG_MODE = false;
 
 
     public TrainFrame() {

@@ -10,7 +10,6 @@ public class VisualCanton {
     private Canton canton;
 
     /**
-     *
      * @param internalVisualStation is from where the train will come
      * @param externalVisualStation is to where the train will leave
      */

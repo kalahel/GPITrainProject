@@ -8,7 +8,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * This class has to test the method of the object RailwayNetwork and its builder
@@ -27,7 +28,7 @@ public class RailwayNetworkTest {
      * We test if the railwayNetwork is initialised
      */
     @Test
-    public void RailwayNetwork(){
+    public void RailwayNetwork() {
         assert railwayNetwork != null;
     }
 
@@ -51,12 +52,12 @@ public class RailwayNetworkTest {
      */
     @Test
     public void getNb_lines() {
-        assertEquals(15,railwayNetwork.getNb_lines());
+        assertEquals(15, railwayNetwork.getNb_lines());
     }
 
     @Test
     public void setNb_lines() {
-        railwayNetwork.setNb_lines((int)3.48454);
-        assertEquals(3,railwayNetwork.getNb_lines());
+        railwayNetwork.setNb_lines((int) 3.48454);
+        assertEquals(3, railwayNetwork.getNb_lines());
     }
 }

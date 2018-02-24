@@ -18,16 +18,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Dashboard extends JPanel {
 
+    public static final int DB_SIZE_X = 1000;
+    public static final int DB_SIZE_Y = 400;
+    private static final int STATION_SIZE = 15;
+    private static final int TRAIN_SIZE = 10;
     private final Color CANTON_COLOR = Color.decode("#29B6F6");
     private final Color STATION_COLOR = new Color(255, 167, 38);
     private final Color BACKGROUND_COLOR = Color.decode("#3C3F41");
     private final Color SELECTED_STATION_COLOR = Color.WHITE;
     private final Color TRAIN_COLOR = Color.decode("#F67280");
-    public static final int DB_SIZE_X = 1000;
-    public static final int DB_SIZE_Y = 400;
-    private static final int STATION_SIZE = 15;
-    private static final int TRAIN_SIZE = 10;
-
     private boolean[][] adjacencyMatrix;
     private int selectedStationIndex = -1;
     private VisualStation selectedStation;

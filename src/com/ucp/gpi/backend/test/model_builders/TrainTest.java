@@ -9,7 +9,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * This class has to test the method of the object Train and its builder
@@ -18,7 +19,7 @@ public class TrainTest {
 
     // The Train
     private TrainBuilder trainBuilder = new TrainBuilder();
-    private Train train = trainBuilder.testValues("ID",151);
+    private Train train = trainBuilder.testValues("ID", 151);
 
     // The Line
     private Line line = new Line();
@@ -27,9 +28,9 @@ public class TrainTest {
     private Canton canton = new Canton();
 
     // The Station
-    private Coordinates coordinates = new Coordinates(0,0);
+    private Coordinates coordinates = new Coordinates(0, 0);
     private StationBuilder stationBuilder = new StationBuilder();
-    private Station station = stationBuilder.testStation("name","ID",null,coordinates);
+    private Station station = stationBuilder.testStation("name", "ID", null, coordinates);
 
     // The Trace
     private Trace trace = new Trace();
@@ -47,7 +48,7 @@ public class TrainTest {
      * We test if the Train is correctly created
      */
     @Test
-    public void Train(){
+    public void Train() {
         assert train != null;
     }
 
@@ -56,7 +57,7 @@ public class TrainTest {
      */
     @Test
     public void getID() {
-        assertEquals("ID",train.getID());
+        assertEquals("ID", train.getID());
     }
 
     @Test
@@ -147,14 +148,14 @@ public class TrainTest {
      */
     @Test
     public void getProgression() {
-        assertEquals(0,train.getProgression(),0);
+        assertEquals(0, train.getProgression(), 0);
     }
 
     @Test
     public void setProgression() {
         train.setProgression(2.022646);
         double getProgression = train.getProgression();
-        assertEquals("The progression is not the same", getProgression, 2.022646,0);
+        assertEquals("The progression is not the same", getProgression, 2.022646, 0);
     }
 
 
@@ -163,7 +164,7 @@ public class TrainTest {
      */
     @Test
     public void getCurrentDistanceDone() {
-        assertEquals(0,train.getCurrentDistanceDone(),0);
+        assertEquals(0, train.getCurrentDistanceDone(), 0);
     }
 
     @Test
@@ -177,12 +178,12 @@ public class TrainTest {
      */
     @Test
     public void getNbUsers() {
-        assertEquals(0,train.getNbUsers());
+        assertEquals(0, train.getNbUsers());
     }
 
     @Test
     public void setNbUsers() {
-        train.setNbUsers((int)3.0001);
+        train.setNbUsers((int) 3.0001);
         assertEquals("The NbUsers is not the same", 3, train.getNbUsers());
     }
 
@@ -206,7 +207,7 @@ public class TrainTest {
      */
     @Test
     public void getCapacity() {
-        assertEquals(151,train.getCapacity());
+        assertEquals(151, train.getCapacity());
     }
 
     @Test

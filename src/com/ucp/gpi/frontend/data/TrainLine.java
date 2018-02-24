@@ -12,7 +12,7 @@ public class TrainLine {
         this.visualCantonList = visualCantonList;
     }
 
-    public void addCanton(VisualCanton visualCanton){
+    public void addCanton(VisualCanton visualCanton) {
         this.visualCantonList.add(visualCanton);
     }
 

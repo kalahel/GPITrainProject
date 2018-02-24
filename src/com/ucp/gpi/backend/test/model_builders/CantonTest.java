@@ -16,14 +16,13 @@ public class CantonTest {
 
     // The Canton
     private CantonBuilder cantonBuilder = new CantonBuilder();
-    private Canton canton = cantonBuilder.testCanton("ID",false,0,0);
+    private Canton canton = cantonBuilder.testCanton("ID", false, 0, 0);
 
     // The Train
     private Train train = new Train();
 
     // The Station
     private Station station = new Station();
-
 
 
     /**
@@ -39,7 +38,7 @@ public class CantonTest {
      */
     @Test
     public void isFree() {
-        assertNotEquals(true,canton.getOccupation());
+        assertNotEquals(true, canton.getOccupation());
     }
 
     /**
@@ -47,13 +46,13 @@ public class CantonTest {
      */
     @Test
     public void getID() {
-        assertEquals("ID",canton.getID());
+        assertEquals("ID", canton.getID());
     }
 
     @Test
     public void setID() {
         canton.setID("test");
-        assertEquals("test",canton.getID());
+        assertEquals("test", canton.getID());
     }
 
     /**
@@ -61,13 +60,13 @@ public class CantonTest {
      */
     @Test
     public void getLenght() {
-        assertEquals(0,canton.getLenght(),0);
+        assertEquals(0, canton.getLenght(), 0);
     }
 
     @Test
     public void setLenght() {
         canton.setLenght(3.32);
-        assertEquals(3.32,canton.getLenght(),0);
+        assertEquals(3.32, canton.getLenght(), 0);
     }
 
     /**
@@ -89,13 +88,13 @@ public class CantonTest {
      */
     @Test
     public void getSpeed() {
-        assertEquals(0,canton.getSpeed());
+        assertEquals(0, canton.getSpeed());
     }
 
     @Test
     public void setSpeed() {
-        canton.setSpeed((int)3.45);
-        assertEquals(3,canton.getSpeed());
+        canton.setSpeed((int) 3.45);
+        assertEquals(3, canton.getSpeed());
     }
 
     /**
@@ -110,7 +109,7 @@ public class CantonTest {
     @Test
     public void setBeginStation() {
         canton.setBeginStation(station);
-        assertEquals(station,canton.getBeginStation());
+        assertEquals(station, canton.getBeginStation());
     }
 
     /**
@@ -125,7 +124,7 @@ public class CantonTest {
     @Test
     public void setEndStation() {
         canton.setEndStation(station);
-        assertEquals(station,canton.getEndStation());
+        assertEquals(station, canton.getEndStation());
     }
 
     /**
@@ -140,6 +139,6 @@ public class CantonTest {
     @Test
     public void setCurrentTrain() {
         canton.setCurrentTrain(train);
-        assertEquals(train,canton.getCurrentTrain());
+        assertEquals(train, canton.getCurrentTrain());
     }
 }

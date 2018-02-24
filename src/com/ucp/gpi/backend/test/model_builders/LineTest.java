@@ -7,7 +7,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * This class has to test the method of the object Line and its builder
@@ -16,7 +17,7 @@ public class LineTest {
 
     // The line
     private LineBuilder lineBuilder = new LineBuilder();
-    private Line line = lineBuilder.testLine("ID","Name",0,0,"couleur",0,0,0);
+    private Line line = lineBuilder.testLine("ID", "Name", 0, 0, "couleur", 0, 0, 0);
 
     // The canton
     private ArrayList<Canton> cantons = new ArrayList<Canton>();
@@ -34,7 +35,7 @@ public class LineTest {
      * We test if the Line is correctly created
      */
     @Test
-    public void Line(){
+    public void Line() {
         assert line != null;
     }
 
@@ -43,13 +44,13 @@ public class LineTest {
      */
     @Test
     public void getID() {
-        assertEquals("ID",line.getID());
+        assertEquals("ID", line.getID());
     }
 
     @Test
     public void setID() {
         line.setID("test");
-        assertEquals("test",line.getID());
+        assertEquals("test", line.getID());
     }
 
     /**
@@ -57,13 +58,13 @@ public class LineTest {
      */
     @Test
     public void getName() {
-        assertEquals("Name",line.getName());
+        assertEquals("Name", line.getName());
     }
 
     @Test
     public void setName() {
         line.setName("test");
-        assertEquals("test",line.getName());
+        assertEquals("test", line.getName());
     }
 
     /**
@@ -78,7 +79,7 @@ public class LineTest {
     @Test
     public void setStations() {
         line.setStations(stations);
-        assertEquals(stations,line.getStations());
+        assertEquals(stations, line.getStations());
     }
 
     /**
@@ -86,13 +87,13 @@ public class LineTest {
      */
     @Test
     public void getNb_stations() {
-        assertEquals(0,line.getNb_stations());
+        assertEquals(0, line.getNb_stations());
     }
 
     @Test
     public void setNb_stations() {
-        line.setNb_stations((int)3.651);
-        assertEquals(3,line.getNb_stations());
+        line.setNb_stations((int) 3.651);
+        assertEquals(3, line.getNb_stations());
     }
 
     /**
@@ -107,7 +108,7 @@ public class LineTest {
     @Test
     public void setCantons() {
         line.setCantons(cantons);
-        assertEquals(cantons,line.getCantons());
+        assertEquals(cantons, line.getCantons());
     }
 
     /**
@@ -122,7 +123,7 @@ public class LineTest {
     @Test
     public void setTrains() {
         line.setTrains(trains);
-        assertEquals(trains,line.getTrains());
+        assertEquals(trains, line.getTrains());
     }
 
     /**
@@ -130,13 +131,13 @@ public class LineTest {
      */
     @Test
     public void getNb_train() {
-        assertEquals(0,line.getNb_train());
+        assertEquals(0, line.getNb_train());
     }
 
     @Test
     public void setNb_train() {
-        line.setNb_train((int)2.064);
-        assertEquals(2,line.getNb_train());
+        line.setNb_train((int) 2.064);
+        assertEquals(2, line.getNb_train());
     }
 
     /**
@@ -144,13 +145,13 @@ public class LineTest {
      */
     @Test
     public void getNb_cantons() {
-        assertEquals(0,line.getNb_cantons());
+        assertEquals(0, line.getNb_cantons());
     }
 
     @Test
     public void setNb_cantons() {
-        line.setNb_cantons((int)5.156161);
-        assertEquals(5,line.getNb_cantons());
+        line.setNb_cantons((int) 5.156161);
+        assertEquals(5, line.getNb_cantons());
     }
 
     /**
@@ -158,13 +159,13 @@ public class LineTest {
      */
     @Test
     public void getColor() {
-        assertEquals("couleur",line.getColor());
+        assertEquals("couleur", line.getColor());
     }
 
     @Test
     public void setColor() {
         line.setColor("jaune");
-        assertEquals("jaune",line.getColor());
+        assertEquals("jaune", line.getColor());
     }
 
     /**
@@ -172,13 +173,13 @@ public class LineTest {
      */
     @Test
     public void getCapacity() {
-        assertEquals(0,line.getCapacity());
+        assertEquals(0, line.getCapacity());
     }
 
     @Test
     public void setCapacity() {
-        line.setCapacity((int)15.251);
-        assertEquals(15,line.getCapacity());
+        line.setCapacity((int) 15.251);
+        assertEquals(15, line.getCapacity());
     }
 
     /**
@@ -193,7 +194,7 @@ public class LineTest {
     @Test
     public void setUsers() {
         line.setUsers(users);
-        assertEquals(users,line.getUsers());
+        assertEquals(users, line.getUsers());
     }
 
     /**
@@ -201,12 +202,12 @@ public class LineTest {
      */
     @Test
     public void getNbUser() {
-        assertEquals(0,line.getNbUser());
+        assertEquals(0, line.getNbUser());
     }
 
     @Test
     public void setNbUser() {
-        line.setNbUser((int)4.25);
-        assertEquals(4,line.getNbUser());
+        line.setNbUser((int) 4.25);
+        assertEquals(4, line.getNbUser());
     }
 }

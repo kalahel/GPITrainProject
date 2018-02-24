@@ -6,7 +6,8 @@ import com.ucp.gpi.backend.utils.Coordinates;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * This class has to test the method of the object Station and its builder
@@ -15,17 +16,17 @@ public class StationTest {
 
     // The station
     private StationBuilder stationBuilder = new StationBuilder();
-    private Station station = stationBuilder.testStation("name","ID",null,new Coordinates(0,0));
+    private Station station = stationBuilder.testStation("name", "ID", null, new Coordinates(0, 0));
 
     // The coordinates
-    private Coordinates coordinates = new Coordinates(0,0);
+    private Coordinates coordinates = new Coordinates(0, 0);
 
 
     /**
      * We test if the station is initialised
      */
     @Test
-    public void Station(){
+    public void Station() {
         assert station != null;
     }
 
@@ -34,13 +35,13 @@ public class StationTest {
      */
     @Test
     public void getName() {
-        assertEquals("name",station.getName());
+        assertEquals("name", station.getName());
     }
 
     @Test
     public void setName() {
         station.setName("test");
-        assertEquals("test",station.getName());
+        assertEquals("test", station.getName());
     }
 
     /**
@@ -48,13 +49,13 @@ public class StationTest {
      */
     @Test
     public void getID() {
-        assertEquals("ID",station.getID());
+        assertEquals("ID", station.getID());
     }
 
     @Test
     public void setID() {
         station.setID("test");
-        assertEquals("test",station.getID());
+        assertEquals("test", station.getID());
     }
 
     /**
@@ -85,6 +86,6 @@ public class StationTest {
     @Test
     public void setCoord() {
         station.setCoord(coordinates);
-        assertEquals(coordinates,station.getCoord());
+        assertEquals(coordinates, station.getCoord());
     }
 }

@@ -4,58 +4,56 @@ import com.ucp.gpi.backend.statistique.StationStat;
 import com.ucp.gpi.backend.utils.Coordinates;
 
 /**
- * 
  * @author matthieu
  * 23/01/2018
- *
  */
 public class Station {
 
-	private String name;
-	private String ID;
-	private StationStat statistique;
-	private Coordinates coord;
-	/* ... */
-	
-	public Station() {
-		
-	}
+    private String name;
+    private String ID;
+    private StationStat statistique;
+    private Coordinates coord;
+    /* ... */
 
-	public String getName() {
-		return name;
-	}
+    public Station() {
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    }
 
-	public String getID() {
-		return ID;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setID(String ID) {
-		this.ID = ID;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public StationStat getStatistique() {
-		return statistique;
-	}
+    public String getID() {
+        return ID;
+    }
 
-	public void setStatistique(StationStat statistique) {
-		this.statistique = statistique;
-	}
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public StationStat getStatistique() {
+        return statistique;
+    }
+
+    public void setStatistique(StationStat statistique) {
+        this.statistique = statistique;
+    }
 
 
-	public Coordinates getCoord() {
-		return coord;
-	}
+    public Coordinates getCoord() {
+        return coord;
+    }
 
-	public void setCoord(Coordinates coord) {
-		this.coord = coord;
-	}
+    public void setCoord(Coordinates coord) {
+        this.coord = coord;
+    }
 
-	@Override
-	public String toString() {
-		return "Station [name=" + name + ", ID=" + ID + ", statistique=" + statistique + ", coord=" + coord + "]";
-	}
+    @Override
+    public String toString() {
+        return "Station [name=" + name + ", ID=" + ID + ", statistique=" + statistique + ", coord=" + coord + "]";
+    }
 }

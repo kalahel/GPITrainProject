@@ -5,62 +5,62 @@ import com.ucp.gpi.backend.utils.BoundedCounter;
 
 public class User {
 
-	private String ID;
-	private Station currentStation;
-	private Train currentTrain;
-	private BoundedCounter satisfaction;
-	private Station dest;
-	private Schedule waitingTime;
-	
-	public User() {
-		
-	}
+    private String ID;
+    private Station currentStation;
+    private Train currentTrain;
+    private BoundedCounter satisfaction;
+    private Station dest;
+    private Schedule waitingTime;
 
-	public String getID() {
-		return ID;
-	}
+    public User() {
 
-	public void setID(String iD) {
-		ID = iD;
-	}
+    }
 
-	public Station getCurrentStation() {
-		return currentStation;
-	}
+    public String getID() {
+        return ID;
+    }
 
-	public void setCurrentStation(Station currentStation) {
-		this.currentStation = currentStation;
-	}
+    public void setID(String iD) {
+        ID = iD;
+    }
 
-	public Train getCurrentTrain() {
-		return currentTrain;
-	}
+    public Station getCurrentStation() {
+        return currentStation;
+    }
 
-	public void setCurrentTrain(Train currentTrain) {
-		this.currentTrain = currentTrain;
-	}
+    public void setCurrentStation(Station currentStation) {
+        this.currentStation = currentStation;
+    }
 
-	public BoundedCounter getSatisfaction() {
-		return satisfaction;
-	}
+    public Train getCurrentTrain() {
+        return currentTrain;
+    }
 
-	public void setSatisfaction(BoundedCounter satisfaction) {
-		this.satisfaction = satisfaction;
-	}
+    public void setCurrentTrain(Train currentTrain) {
+        this.currentTrain = currentTrain;
+    }
 
-	public Station getDest() {
-		return dest;
-	}
+    public BoundedCounter getSatisfaction() {
+        return satisfaction;
+    }
 
-	public void setDest(Station dest) {
-		this.dest = dest;
-	}
+    public void setSatisfaction(BoundedCounter satisfaction) {
+        this.satisfaction = satisfaction;
+    }
 
-	public Schedule getWaitingTime() {
-		return waitingTime;
-	}
+    public Station getDest() {
+        return dest;
+    }
 
-	public void setWaitingTime(Schedule waitingTime) {
-		this.waitingTime = waitingTime;
-	}
+    public void setDest(Station dest) {
+        this.dest = dest;
+    }
+
+    public Schedule getWaitingTime() {
+        return waitingTime;
+    }
+
+    public void setWaitingTime(Schedule waitingTime) {
+        this.waitingTime = waitingTime;
+    }
 }

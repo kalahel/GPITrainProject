@@ -3,10 +3,10 @@ package com.ucp.gpi.backend.run;
 import com.ucp.gpi.backend.builders.NetworkBuilder;
 import com.ucp.gpi.backend.builders.TrainBuilder;
 import com.ucp.gpi.backend.clock.Clock;
-import com.ucp.gpi.frontend.panels.Displayable;
 import com.ucp.gpi.backend.model.Line;
 import com.ucp.gpi.backend.model.RailwayNetwork;
 import com.ucp.gpi.backend.model.Train;
+import com.ucp.gpi.frontend.panels.Displayable;
 
 public class Run implements Runnable {
 
@@ -25,6 +25,12 @@ public class Run implements Runnable {
     public Run(Displayable displayable) {
         this.displayable = displayable;
         isDisplayed = true;
+    }
+
+    public static void main(String[] args) {
+        Run run = new Run();
+        Thread thread = new Thread(run);
+        thread.start();
     }
 
     @Override
@@ -55,12 +61,6 @@ public class Run implements Runnable {
                 this.displayable.refreshAll(network);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        Run run = new Run();
-        Thread thread = new Thread(run);
-        thread.start();
     }
 
 }

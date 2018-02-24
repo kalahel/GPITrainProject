@@ -6,7 +6,8 @@ import com.ucp.gpi.backend.model.User;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * This class has to test the method of the object User
@@ -27,7 +28,7 @@ public class UserTest {
      * We will test if the user object is correctly initialised
      */
     @Test
-    public void User(){
+    public void User() {
         assert user != null;
     }
 
@@ -42,7 +43,7 @@ public class UserTest {
     @Test
     public void setID() {
         user.setID("TEST");
-        assertEquals("TEST",user.getID());
+        assertEquals("TEST", user.getID());
     }
 
     /**
@@ -57,7 +58,7 @@ public class UserTest {
     @Test
     public void setCurrentStation() {
         user.setCurrentStation(station);
-        assertEquals(station,user.getCurrentStation());
+        assertEquals(station, user.getCurrentStation());
     }
 
     /**
@@ -72,7 +73,7 @@ public class UserTest {
     @Test
     public void setCurrentTrain() {
         user.setCurrentTrain(train);
-        assertEquals(train,user.getCurrentTrain());
+        assertEquals(train, user.getCurrentTrain());
     }
 
     /**
@@ -102,7 +103,7 @@ public class UserTest {
     @Test
     public void setDest() {
         user.setDest(station);
-        assertEquals(station,user.getDest());
+        assertEquals(station, user.getDest());
     }
 
     /**

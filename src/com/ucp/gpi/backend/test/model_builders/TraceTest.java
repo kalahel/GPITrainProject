@@ -7,7 +7,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 
 /**
@@ -26,7 +27,7 @@ public class TraceTest {
      * We test if the trace is initialised
      */
     @Test
-    public void Trace(){
+    public void Trace() {
         assert trace != null;
     }
 
@@ -42,7 +43,7 @@ public class TraceTest {
     @Test
     public void setTrace() {
         trace.setTrace(cantons);
-        assertEquals(cantons,trace.getTrace());
+        assertEquals(cantons, trace.getTrace());
     }
 
     /**
@@ -56,7 +57,7 @@ public class TraceTest {
 
     @Test
     public void setNbCanton() {
-        trace.setNbCanton((int)3.48454);
-        assertEquals(3,trace.getNbCanton());
+        trace.setNbCanton((int) 3.48454);
+        assertEquals(3, trace.getNbCanton());
     }
 }
