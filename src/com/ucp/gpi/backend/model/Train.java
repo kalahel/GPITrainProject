@@ -54,29 +54,39 @@ public class Train extends Thread {
 
             //if the train reach the end of the canton
             if (progression >= 1) {
-                System.out.println("Train " + ID + ": Entré en Gare (" + this.getCurrentCanton().getEndStation().getName() + ")");
-                this.getCurrentCanton().setOccupation(false);
-                this.getTrace().getTrace().remove(0);
-                this.setCurrentStation(currentCanton.getEndStation());
-                this.setCurrentCanton(null);
-
-                progression = 0;
-                currentDistanceDone = 0;
+            	if(this.getCurrentCanton().getEndStation().isOccupation() == false){
+	                //System.out.println("Train " + ID + ": Entré en Gare (" + this.getCurrentCanton().getEndStation().getName() + ")");
+	                this.getCurrentCanton().setOccupation(false);
+	                this.getTrace().getTrace().remove(0);
+	                this.setCurrentStation(currentCanton.getEndStation());
+	                this.getCurrentStation().setOccupation(true);
+	                this.setCurrentCanton(null);
+	
+	                progression = 0;
+	                currentDistanceDone = 0;
+            	}
+            	else{
+            		System.out.println("Train " + ID + " : Bloqué car gare " + this.getCurrentCanton().getEndStation() + "pleine");
+            		this.currentDistanceDone -= this.currentCanton.getSpeed();
+                    progression = currentDistanceDone / currentCanton.getLenght();
+            	}
             } else {
-                System.out.println("Train " + ID + ": En transition (" + this.getCurrentCanton().getBeginStation().getName() + " - " + this.getCurrentCanton().getEndStation().getName() + ")");
+               // System.out.println("Train " + ID + ": En transition (" + this.getCurrentCanton().getBeginStation().getName() + " - " + this.getCurrentCanton().getEndStation().getName() + ")");
             }
         } else if (currentCanton == null && currentStation != null) {
             if (trace.getTrace().size() != 0) {
                 if (!trace.getTrace().get(0).getOccupation()) {
-                    System.out.println("Train " + ID + ": Sorti de Gare (" + this.getCurrentStation().getName() + ")");
+                    //System.out.println("Train " + ID + ": Sorti de Gare (" + this.getCurrentStation().getName() + ")");
                     this.setCurrentCanton(trace.getTrace().get(0));
                     this.getCurrentCanton().setCurrentTrain(this);
                     this.getCurrentCanton().setOccupation(true);
+                    this.getCurrentStation().setOccupation(false);
                     this.setCurrentStation(null);
                 }
             } else {
+            	this.getCurrentStation().setOccupation(false);
                 arrived = true;
-                System.out.println("Train " + ID + ": Arrivé à destination");
+                //System.out.println("Train " + ID + ": Arrivé à destination");
             }
         } else {
             if (trace != null) {

@@ -20,6 +20,7 @@ public class StationBuilder {
         station = new Station();
         station.setName(name);
         station.setID(code_UIC);
+        station.setOccupation(false);
         return station;
     }
 

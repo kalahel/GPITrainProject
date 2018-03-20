@@ -16,10 +16,18 @@ public class Station {
     private StationStat statistique;
     private Coordinates coord;
     private ArrayList<User> userList;
-    /* ... */
+    private boolean occupation;
 
     public Station() {
 
+    }
+    
+    public void break_station(){
+    	this.setOccupation(true);
+    }
+    
+    public void repair_station(){
+    	this.setOccupation(false);
     }
 
     public String getName() {
@@ -55,7 +63,15 @@ public class Station {
         this.coord = coord;
     }
 
-    @Override
+    public boolean isOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(boolean occupation) {
+		this.occupation = occupation;
+	}
+
+	@Override
     public String toString() {
         return "Station [name=" + name + ", ID=" + ID + ", statistique=" + statistique + ", coord=" + coord + "]";
     }

@@ -25,6 +25,14 @@ public class Canton {
             return true;
         }
     }
+    
+    public void break_canton(){
+    	this.setOccupation(true);
+    }
+    
+    public void repair_canton(){
+    	this.setOccupation(false);
+    }
 
     public String getID() {
         return ID;
