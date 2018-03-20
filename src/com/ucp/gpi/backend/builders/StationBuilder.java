@@ -21,6 +21,7 @@ public class StationBuilder {
         station.setName(name);
         station.setID(code_UIC);
         station.setOccupation(false);
+        station.setStatistique(new StationStat(station));
         return station;
     }
 
