@@ -1,5 +1,7 @@
 package com.ucp.gpi.backend.model;
 
+import java.util.ArrayList;
+
 import com.ucp.gpi.backend.statistique.StationStat;
 import com.ucp.gpi.backend.utils.Coordinates;
 
@@ -13,6 +15,7 @@ public class Station {
     private String ID;
     private StationStat statistique;
     private Coordinates coord;
+    private ArrayList<User> userList;
     private boolean occupation;
 
     public Station() {

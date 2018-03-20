@@ -18,7 +18,6 @@ public class Line {
     private int nb_train;
     private String color;
     private int capacity;
-    private ArrayList<User> users;
     private int nbUser;
 
 
@@ -26,7 +25,6 @@ public class Line {
         stations = new ArrayList<Station>();
         cantons = new ArrayList<Canton>();
         trains = new ArrayList<Train>();
-        users = new ArrayList<User>();
     }
 
     public String getID() {
@@ -116,14 +114,6 @@ public class Line {
         this.capacity = capacity;
     }
 
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(ArrayList<User> users) {
-        this.users = users;
-    }
-
     public int getNbUser() {
         return nbUser;
     }
@@ -136,7 +126,7 @@ public class Line {
     public String toString() {
         return "Line [ID=" + ID + ", name=" + name + ", stations=" + stations + ", nb_stations=" + nb_stations
                 + ", cantons=" + cantons + ", nb_cantons=" + nb_cantons + ", trains=" + trains + ", nb_train="
-                + nb_train + ", color=" + color + ", capacity=" + capacity + ", users=" + users + ", nbUser=" + nbUser
+                + nb_train + ", color=" + color + ", capacity=" + capacity + ", nbUser=" + nbUser
                 + "]";
     }
 }

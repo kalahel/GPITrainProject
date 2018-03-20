@@ -198,8 +198,8 @@ public class TrainTest {
 
     @Test
     public void setUsers() {
-        train.setUsers(user);
-        assertEquals("The Users are not the same", user, train.getUsers());
+        train.setUserlist(user);
+        assertEquals("The Users are not the same", user, train.getUserlist());
     }
 
     /**
