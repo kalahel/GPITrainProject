@@ -19,7 +19,7 @@ public class Train extends Thread {
     private double progression;
     private double currentDistanceDone;
     private int nbUsers;
-    private ArrayList<User> Users;
+    private ArrayList<User>userlist;
     private int capacity;
     private Coordinates coord;
     private Trace trace;
@@ -160,15 +160,15 @@ public class Train extends Thread {
         this.nbUsers = nbUsers;
     }
 
-    public ArrayList<User> getUsers() {
-        return Users;
-    }
+    public ArrayList<User> getUserlist() {
+		return userlist;
+	}
 
-    public void setUsers(ArrayList<User> users) {
-        Users = users;
-    }
+	public void setUserlist(ArrayList<User> userlist) {
+		this.userlist = userlist;
+	}
 
-    public int getCapacity() {
+	public int getCapacity() {
         return capacity;
     }
 
@@ -195,7 +195,7 @@ public class Train extends Thread {
     @Override
     public String toString() {
         return "Train [ID=" + ID + ", line=" + line + ", currentCanton=" + currentCanton + ", currentStation="
-                + currentStation + ", src=" + src + ", dest=" + dest + ", nbUsers=" + nbUsers + ", Users=" + Users
+                + currentStation + ", src=" + src + ", dest=" + dest + ", nbUsers=" + nbUsers + ", Users=" + userlist
                 + ", capacity=" + capacity + ", coord=" + coord + "]";
     }
 

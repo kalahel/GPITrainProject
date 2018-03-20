@@ -191,12 +191,6 @@ public class LineTest {
         fail("Not implemented yet");
     }
 
-    @Test
-    public void setUsers() {
-        line.setUsers(users);
-        assertEquals(users, line.getUsers());
-    }
-
     /**
      * We will test the number of user of the line
      */
