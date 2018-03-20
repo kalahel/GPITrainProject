@@ -39,6 +39,11 @@ public class Run implements Runnable {
         RailwayNetwork network = netBuilder.creat(1);
         TrainBuilder tBuilder = new TrainBuilder();
         Line firstLine = network.getLines().get(0);
+        
+        //Breaking test
+        //firstLine.getCantons().get(5).break_canton();
+        //firstLine.getStations().get(5).break_station();
+        
         if (this.isDisplayed)
             this.displayable.setNetwork(network);
 
