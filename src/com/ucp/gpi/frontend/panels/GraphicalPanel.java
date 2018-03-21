@@ -11,6 +11,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GraphicalPanel extends JPanel {
 
@@ -19,10 +20,20 @@ public class GraphicalPanel extends JPanel {
         final XYSeriesCollection dataset = new XYSeriesCollection(series);
         final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 
+        //a retirer 
         series.add(1, 4);
         series.add(3, 9);
         series.add(4, 4);
         series.add(2, 2);
+        
+        
+        //doit prendre en paramettre la station pour laquelle il faut afficher les stats
+        /*
+         ArrayList<Integer> dataArray = station.getStatistiques().getTrain_occupation();
+         for(int i; i<dataArray.size(); i++){
+         	series.add(i, dataArray.get(i));
+         }
+         * */
 
         renderer.setSeriesPaint(0, Color.decode("#F44336"));
         renderer.setSeriesShapesVisible(0, true);

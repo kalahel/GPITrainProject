@@ -24,6 +24,7 @@ public class StationBuilder {
         station.setOccupation(false);
         station.setLine(line);
         station.setCapacity(capacity);
+        station.setStatistique(new StationStat(station));
         return station;
     }
 

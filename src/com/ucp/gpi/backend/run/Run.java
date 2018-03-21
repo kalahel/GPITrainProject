@@ -65,6 +65,16 @@ public class Run implements Runnable {
             if (this.isDisplayed) {
                 this.displayable.refreshAll(network);
             }
+            
+            for(int i=0; i<firstLine.getNb_stations(); i++){
+            	if(firstLine.getStations().get(i).isOccupation()){
+            		firstLine.getStations().get(i).getStatistique().getTrain_occupation().add(0);
+            	}
+            	else{
+            		firstLine.getStations().get(i).getStatistique().getTrain_occupation().add(1);
+            	}
+            }
+            //System.out.println(firstLine.getStations().get(3).getStatistique().getTrain_occupation());
         }
     }
 
