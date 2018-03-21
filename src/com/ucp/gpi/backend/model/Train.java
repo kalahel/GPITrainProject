@@ -91,8 +91,8 @@ public class Train extends Thread {
         } else {
             if (trace != null) {
                 int nbCanton = this.getTrace().getTrace().size();
-                System.out.println("Train " + ID + ": De " + this.getTrace().getTrace().get(0).getBeginStation().getName()
-                        + " à destination de " + this.getTrace().getTrace().get(nbCanton - 1).getEndStation().getName());
+                System.out.println("Train " + ID + ": De " + this.getTrace().getTrace().get(0).getBeginStation().getStationName()
+                        + " à destination de " + this.getTrace().getTrace().get(nbCanton - 1).getEndStation().getStationName());
                 this.setCurrentStation(trace.getTrace().get(0).getBeginStation());
             }
         }

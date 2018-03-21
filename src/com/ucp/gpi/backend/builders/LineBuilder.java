@@ -55,8 +55,9 @@ public class LineBuilder {
                 CSVRecord record = csvRecords.get(i);
 
                 if (record.get(line_name).equals("1")) {
-                    Station newStation = sBuilder.CreatStation((String) record.get("Libelle_point_arret"), record.get("Code_UIC"));
+                    Station newStation = sBuilder.CreatStation((String) record.get("Libelle_point_arret"), record.get("Code_UIC"), line, 20);
                     line.getStations().add(newStation);
+                    newStation.start();
                 }
 
             }
