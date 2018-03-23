@@ -140,7 +140,7 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
     public void refreshStats() {
         String text = "";
         if (dashboard.isSet() && dashboard.isSelectedOnce())
-            text += "Station sélectionnée : " + (dashboard.getSelectedStation().getStation().getName());
+            text += "Station sélectionnée : " + (dashboard.getSelectedStation().getStation().getStationName());
         else
             text += "Station sélectionnée : " + (dashboard.getSelectedStationIndex() + 1);
         text += "\nSatisfaction moyenne : X";

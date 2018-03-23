@@ -133,7 +133,7 @@ public class Dashboard extends JPanel {
 
 
             if (isSet && stationsArray.size() < 20)
-                g2.drawString("" + stationsArray.get(index).getStation().getName(), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);
+                g2.drawString("" + stationsArray.get(index).getStation().getStationName(), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);
             else
                 g2.drawString("" + (index + 1), stationsArray.get(index).getPosX(), stationsArray.get(index).getPosY() - STATION_SIZE);
 
@@ -278,7 +278,8 @@ public class Dashboard extends JPanel {
      * @param railwayNetwork Backend engine
      */
     public void setRailwayNetwork(RailwayNetwork railwayNetwork) {
-        this.railwayNetwork = railwayNetwork;
+        if (!isLocked)
+            this.railwayNetwork = railwayNetwork;
         if (!isSet) {
             //TODO add check for multiple lines
             stationsArray = stationsGenerationFromList(railwayNetwork.getLines().get(0).getStations());
@@ -290,11 +291,12 @@ public class Dashboard extends JPanel {
             testCantonValidity();
             testCantonNumber(railwayNetwork.getLines().get(0).getCantons());
         }
-        if (TrainFrame.DEBUG_MODE)
-            printTrainsInfos(railwayNetwork.getLines().get(0).getTrains());
 
         // the train list can not be modified while it is rendered
         if (!isLocked) {
+            if (TrainFrame.DEBUG_MODE)
+                printTrainsInfos(railwayNetwork.getLines().get(0).getTrains());
+
             this.trainsArray = new ArrayList<>();
             for (VisualCanton visualCanton : visualCantonArray) {
                 if (!visualCanton.getCanton().isFree()) {
@@ -354,10 +356,10 @@ public class Dashboard extends JPanel {
         for (int index = 0; index < trains.size(); index++) {
             System.out.println("Train : " + index + " ");
             if (!(trains.get(index).getCurrentCanton() == null)) {
-                System.out.println("Canton : " + trains.get(index).getCurrentCanton().getID() + " Between : " + trains.get(index).getCurrentCanton().getBeginStation().getName() + " and " + trains.get(index).getCurrentCanton().getEndStation().getName());
+                System.out.println("Canton : " + trains.get(index).getCurrentCanton().getID() + " Between : " + trains.get(index).getCurrentCanton().getBeginStation().getStationName() + " and " + trains.get(index).getCurrentCanton().getEndStation().getStationName());
             }
             if (!(trains.get(index).getCurrentStation() == null)) {
-                System.out.println("Station : " + trains.get(index).getCurrentStation().getName());
+                System.out.println("Station : " + trains.get(index).getCurrentStation().getStationName());
             }
         }
         System.out.println("&&&& END INFO &&&&&\n");
