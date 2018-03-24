@@ -23,7 +23,7 @@ public class UserFactory {
 		User user = new User();
 		Station destination;
 		int stationPosition = line.getStationPosition(station);
-		int destPosition = rand.nextInt(line.getStations().size() - stationPosition) + stationPosition;
+		int destPosition = rand.nextInt(line.getStations().size() - stationPosition ) + stationPosition;
 		destination = line.getStations().get(destPosition);
 		user.setCurrentStation(station);
 		user.setDest(destination);
