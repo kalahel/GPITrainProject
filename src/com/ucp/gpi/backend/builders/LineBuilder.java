@@ -1,18 +1,20 @@
 package com.ucp.gpi.backend.builders;
 
-import com.ucp.gpi.backend.model.Canton;
-import com.ucp.gpi.backend.model.Line;
-import com.ucp.gpi.backend.model.Station;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.UUID;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
+import com.ucp.gpi.backend.model.Canton;
+import com.ucp.gpi.backend.model.Line;
+import com.ucp.gpi.backend.model.Station;
 
 /**
  * @author matthieu
@@ -30,6 +32,8 @@ public class LineBuilder {
 
     public Line creatLineFromFile(String line_name) {
 
+    	Random rand = new Random();
+    	
         System.out.println(LINERERPATH);
 
         Line line = new Line();
@@ -55,7 +59,7 @@ public class LineBuilder {
                 CSVRecord record = csvRecords.get(i);
 
                 if (record.get(line_name).equals("1")) {
-                    Station newStation = sBuilder.CreatStation((String) record.get("Libelle_point_arret"), record.get("Code_UIC"), line, 20);
+                    Station newStation = sBuilder.CreatStation((String) record.get("Libelle_point_arret"), record.get("Code_UIC"), line, rand.nextInt(100) + 100);
                     line.getStations().add(newStation);
                     newStation.start();
                 }

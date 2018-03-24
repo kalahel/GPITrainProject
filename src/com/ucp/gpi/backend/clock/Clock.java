@@ -10,6 +10,7 @@ import com.ucp.gpi.backend.utils.CyclicCounter;
  */
 public class Clock extends Thread {
     public final static long speed = 50;
+    public final static long populationSpawn = 500;
     private int total;
     private CyclicCounter min;
     private CyclicCounter hours;

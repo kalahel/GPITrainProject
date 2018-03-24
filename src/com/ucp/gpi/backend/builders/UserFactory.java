@@ -1,5 +1,7 @@
 package com.ucp.gpi.backend.builders;
 
+import java.util.Random;
+
 import com.ucp.gpi.backend.model.Line;
 import com.ucp.gpi.backend.model.Station;
 import com.ucp.gpi.backend.model.User;
@@ -17,9 +19,14 @@ public class UserFactory {
 	}
 	
 	public User createUser(Station station, Line line){
+		Random rand = new Random();
 		User user = new User();
+		Station destination;
+		int stationPosition = line.getStationPosition(station);
+		int destPosition = rand.nextInt(line.getStations().size() - stationPosition) + stationPosition;
+		destination = line.getStations().get(destPosition);
 		user.setCurrentStation(station);
-		user.setDest(line.getStations().get(line.getStations().size() - 1));
+		user.setDest(destination);
 		return user;
 	}
 }

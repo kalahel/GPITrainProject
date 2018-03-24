@@ -26,12 +26,23 @@ public class Station extends Thread{
     	userList = new ArrayList<User>();
     }
     
+    public boolean isOnTrace(Trace trace){
+    	int i;
+    	for (i=0; i<trace.getTrace().size(); i++){
+    		if (trace.getTrace().get(i).getBeginStation() == this)
+    			return true;
+    		else if (trace.getTrace().get(i).getEndStation() == this)
+    			return true;
+    	}
+    	return false;
+    }
+    
     @Override
     public void run() {
     	UserFactory ufactory = new UserFactory();
         while (true) {
             try {
-                this.sleep(Clock.speed);
+                Station.sleep(Clock.populationSpawn);
             } catch (InterruptedException e) {
                 System.out.println("Train " + ID + " didn't sleep !");
                 e.printStackTrace();

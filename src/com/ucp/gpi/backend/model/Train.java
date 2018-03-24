@@ -26,7 +26,7 @@ public class Train extends Thread {
     private boolean arrived = false;
 
     public Train() {
-
+    	userlist = new ArrayList<User>();
     }
 
     @Override
@@ -61,6 +61,7 @@ public class Train extends Thread {
 	                this.setCurrentStation(currentCanton.getEndStation());
 	                this.getCurrentStation().setOccupation(true);
 	                this.setCurrentCanton(null);
+	                this.mindTheGap(this.getCurrentStation());
 	
 	                progression = 0;
 	                currentDistanceDone = 0;
@@ -86,7 +87,7 @@ public class Train extends Thread {
             } else {
             	this.getCurrentStation().setOccupation(false);
                 arrived = true;
-                //System.out.println("Train " + ID + ": Arrivé à destination");
+                System.out.println("Train " + ID + ": Arrivé à destination");
             }
         } else {
             if (trace != null) {
@@ -96,6 +97,31 @@ public class Train extends Thread {
                 this.setCurrentStation(trace.getTrace().get(0).getBeginStation());
             }
         }
+    }
+    
+    public void mindTheGap(Station station){
+    	int i = 0, k=0;
+    	//OUT
+    	for(i = 0; i < this.getUserlist().size(); i++){
+    		if(this.getUserlist().get(i).getDest() == station){
+    			this.getUserlist().remove(i);
+    			k++;
+    		}
+    	}
+    	System.out.println(k + " people moved out the train " + this.toString());
+    	
+    	//IN
+    	i=0;
+    	if (this.userlist.size() < capacity){
+    		while(i < station.getUserList().size()){
+    			if(station.getUserList().get(i).getDest().isOnTrace(trace)){
+    				this.getUserlist().add(station.getUserList().get(i));
+    				station.getUserList().remove(i);
+    			}
+    			i++;
+    		}
+    	}
+    	System.out.println(i + " people moved in the train " + this.toString());
     }
 
     public String getID() {

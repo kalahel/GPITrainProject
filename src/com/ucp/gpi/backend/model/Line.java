@@ -26,6 +26,15 @@ public class Line {
         cantons = new ArrayList<Canton>();
         trains = new ArrayList<Train>();
     }
+    
+    public int getStationPosition(Station station){
+    	int i;
+    	for (i=0; i<stations.size(); i++){
+    		if (stations.get(i) == station)
+    			return i;
+    	}
+    	return stations.size();
+    }
 
     public String getID() {
         return ID;
