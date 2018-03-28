@@ -15,6 +15,7 @@ import org.apache.commons.csv.CSVRecord;
 import com.ucp.gpi.backend.model.Canton;
 import com.ucp.gpi.backend.model.Line;
 import com.ucp.gpi.backend.model.Station;
+import com.ucp.gpi.backend.statistique.LineStat;
 
 /**
  * @author matthieu
@@ -88,7 +89,9 @@ public class LineBuilder {
         //array list of train
         //nothing, will be create by a other process
 
-
+        LineStat statistique = new LineStat(line.getNb_stations());
+        line.setStatistique(statistique); 
+        
         return line;
     }
 

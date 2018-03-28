@@ -6,6 +6,8 @@ package com.ucp.gpi.backend.model;
 
 import java.util.ArrayList;
 
+import com.ucp.gpi.backend.statistique.LineStat;
+
 public class Line {
 
     private String ID;
@@ -19,6 +21,7 @@ public class Line {
     private String color;
     private int capacity;
     private int nbUser;
+    private LineStat statistique;
 
 
     public Line() {
@@ -131,7 +134,15 @@ public class Line {
         this.nbUser = nbUser;
     }
 
-    @Override
+    public LineStat getStatistique() {
+		return statistique;
+	}
+
+	public void setStatistique(LineStat statistique) {
+		this.statistique = statistique;
+	}
+
+	@Override
     public String toString() {
         return "Line [ID=" + ID + ", name=" + name + ", stations=" + stations + ", nb_stations=" + nb_stations
                 + ", cantons=" + cantons + ", nb_cantons=" + nb_cantons + ", trains=" + trains + ", nb_train="

@@ -67,14 +67,10 @@ public class Run implements Runnable {
             }
             
             for(int i=0; i<firstLine.getNb_stations(); i++){
-            	if(firstLine.getStations().get(i).isOccupation()){
-            		firstLine.getStations().get(i).getStatistique().getTrain_occupation().add(0);
-            	}
-            	else{
-            		firstLine.getStations().get(i).getStatistique().getTrain_occupation().add(1);
-            	}
+            	int nbPopByStation = firstLine.getStations().get(i).getUserList().size();
+            	firstLine.getStatistique().getPopEvolution().get(i).add(nbPopByStation);
             }
-            //System.out.println(firstLine.getStations().get(1).getStatistique().getTrain_occupation());
+            //System.out.println(firstLine.getStatistique().getPopEvolution().get(5).toString() );
         }
     }
 
