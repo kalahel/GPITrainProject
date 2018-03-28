@@ -24,7 +24,6 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
     public static final boolean DEBUG_MODE = false;
     private JPanel panel1;
     private Dashboard dashboard;
-    private JPanel leftBottomPanel;
     private STexturedButton blueButton;
     private STexturedButton orangeButton;
     private STexturedButton purpleButton;
@@ -80,7 +79,6 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
             }
         });
         dashboard.repaint();
-        leftBottomPanel.setBackground(new Color(0, 0, 0, 0));
         rightBottomPanel.setBackground(new Color(0, 0, 0, 0));
 
         blueButton.addEventListener(this);
@@ -109,12 +107,15 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
     public void onEvent(SwingerEvent e) {
         if (e.getSource() == greenButton)
             System.out.println("Green");
-        else if (e.getSource() == blueButton)
-            this.refreshPanel(railwayNetwork);
-        else if (e.getSource() == purpleButton)
+        else if (e.getSource() == blueButton) {
+            if (dashboard.getSelectedStation() != null)
+                dashboard.getSelectedStation().getStation().break_station();
+        } else if (e.getSource() == purpleButton)
             System.out.println("Purple");
-        else if (e.getSource() == orangeButton)
-            System.out.println("Orange");
+        else if (e.getSource() == orangeButton) {
+            if (dashboard.getSelectedStation() != null)
+                dashboard.getSelectedStation().getStation().repair_station();
+        }
     }
 
     @Override
@@ -161,19 +162,12 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
     private void $$$setupUI$$$() {
         createUIComponents();
         panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(4, 5, new Insets(0, 0, 0, 0), -1, -1));
+        panel1.setLayout(new GridLayoutManager(5, 5, new Insets(0, 0, 0, 0), -1, -1));
         panel1.setBackground(new Color(-13157828));
-        leftBottomPanel = new JPanel();
-        leftBottomPanel.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
-        panel1.add(leftBottomPanel, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, new Dimension(-1, 40), 0, false));
-        purpleButton.setBackground(new Color(-8497214));
-        leftBottomPanel.add(purpleButton, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        greenButton.setBackground(new Color(-10044566));
-        greenButton.setText("");
-        leftBottomPanel.add(greenButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel1.setForeground(new Color(-13157828));
         dashboard = new Dashboard();
         dashboard.setBackground(new Color(-12828863));
-        panel1.add(dashboard, new GridConstraints(1, 1, 2, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel1.add(dashboard, new GridConstraints(1, 1, 3, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         panel1.add(spacer1, new GridConstraints(3, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(10, -1), null, 0, false));
         final Spacer spacer2 = new Spacer();
@@ -202,6 +196,7 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
         panel1.add(spacer4, new GridConstraints(2, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(10, -1), null, 0, false));
         rightBottomPanel = new JPanel();
         rightBottomPanel.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
+        rightBottomPanel.setBackground(new Color(-13157828));
         panel1.add(rightBottomPanel, new GridConstraints(3, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, new Dimension(-1, 40), 0, false));
         blueButton.setBackground(new Color(-10788147));
         rightBottomPanel.add(blueButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -209,6 +204,8 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
         rightBottomPanel.add(orangeButton, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         gPanel.setBackground(new Color(-12828863));
         panel1.add(gPanel, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        final Spacer spacer5 = new Spacer();
+        panel1.add(spacer5, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 10), null, 0, false));
     }
 
     /**

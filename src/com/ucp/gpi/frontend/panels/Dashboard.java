@@ -19,7 +19,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Dashboard extends JPanel {
 
     public static final int DB_SIZE_X = 1000;
-    public static final int DB_SIZE_Y = 400;
+    public static final int DB_SIZE_Y = 690;
     private static final int STATION_SIZE = 15;
     private static final int TRAIN_SIZE = 10;
     private final Color CANTON_COLOR = Color.decode("#29B6F6");
@@ -74,7 +74,10 @@ public class Dashboard extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         paintCantonFromArray(g2);
         paintStations(g2);
-        paintTrains(g2);
+        try {
+            paintTrains(g2);
+        } catch (Exception ignored) {
+        }
     }
 
     @Override
