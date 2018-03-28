@@ -2,6 +2,8 @@ package com.ucp.gpi.backend.model;
 
 import java.util.ArrayList;
 
+import com.ucp.gpi.backend.builders.UserFactory;
+import com.ucp.gpi.backend.clock.Clock;
 import com.ucp.gpi.backend.statistique.StationStat;
 import com.ucp.gpi.backend.utils.Coordinates;
 
@@ -9,17 +11,48 @@ import com.ucp.gpi.backend.utils.Coordinates;
  * @author matthieu
  * 23/01/2018
  */
-public class Station {
+public class Station extends Thread{
 
-    private String name;
+    private String stationName;
     private String ID;
     private StationStat statistique;
     private Coordinates coord;
     private ArrayList<User> userList;
     private boolean occupation;
+    private int capacity;
+    private Line line;
 
-    public Station() {
-
+    public Station(){
+    	userList = new ArrayList<User>();
+    }
+    
+    public boolean isOnTrace(Trace trace){
+    	int i;
+    	for (i=0; i<trace.getTrace().size(); i++){
+    		if (trace.getTrace().get(i).getBeginStation() == this)
+    			return true;
+    		else if (trace.getTrace().get(i).getEndStation() == this)
+    			return true;
+    	}
+    	return false;
+    }
+    
+    @Override
+    public void run() {
+    	UserFactory ufactory = new UserFactory();
+        while (true) {
+            try {
+                Station.sleep(Clock.populationSpawn);
+            } catch (InterruptedException e) {
+                System.out.println("Train " + ID + " didn't sleep !");
+                e.printStackTrace();
+            }
+            if (userList.size() < capacity){
+            	User u = ufactory.createUser(this, line);
+            	this.userList.add(u);
+            	System.out.println(stationName + " Population: " + userList.size() + "/" + capacity);
+            }
+        }
     }
     
     public void break_station(){
@@ -30,12 +63,12 @@ public class Station {
     	this.setOccupation(false);
     }
 
-    public String getName() {
-        return name;
+    public String getStationName(){
+        return stationName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStationName(String name) {
+        this.stationName = name;
     }
 
     public String getID() {
@@ -71,8 +104,32 @@ public class Station {
 		this.occupation = occupation;
 	}
 
+	public ArrayList<User> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(ArrayList<User> userList) {
+		this.userList = userList;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public Line getLine() {
+		return line;
+	}
+
+	public void setLine(Line line) {
+		this.line = line;
+	}
+
 	@Override
     public String toString() {
-        return "Station [name=" + name + ", ID=" + ID + ", statistique=" + statistique + ", coord=" + coord + "]";
+        return "Station [name=" + stationName + ", ID=" + ID + ", statistique=" + statistique + ", coord=" + coord + "]";
     }
 }

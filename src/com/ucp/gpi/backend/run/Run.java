@@ -74,7 +74,7 @@ public class Run implements Runnable {
             		firstLine.getStations().get(i).getStatistique().getTrain_occupation().add(1);
             	}
             }
-            //System.out.println(firstLine.getStations().get(3).getStatistique().getTrain_occupation());
+            //System.out.println(firstLine.getStations().get(1).getStatistique().getTrain_occupation());
         }
     }
 

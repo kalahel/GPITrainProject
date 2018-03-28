@@ -1,8 +1,13 @@
 package com.ucp.gpi.backend.builders;
 
-import com.ucp.gpi.backend.model.*;
-
 import java.util.ArrayList;
+import java.util.Random;
+
+import com.ucp.gpi.backend.model.Canton;
+import com.ucp.gpi.backend.model.Line;
+import com.ucp.gpi.backend.model.Station;
+import com.ucp.gpi.backend.model.Trace;
+import com.ucp.gpi.backend.model.Train;
 
 public class TrainBuilder {
 
@@ -42,10 +47,11 @@ public class TrainBuilder {
 
     public Train basicInit(Train train) {
         Double d = Math.random() * 1000;
+        Random rand = new Random();
         train.setID(String.valueOf(d.intValue()));
         train.setProgression(0);
         train.setCurrentDistanceDone(0);
-
+        train.setCapacity(rand.nextInt(50) + 50);
         return train;
     }
 
