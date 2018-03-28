@@ -1,5 +1,6 @@
 package com.ucp.gpi.frontend.panels;
 
+import com.ucp.gpi.backend.model.RailwayNetwork;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -12,31 +13,22 @@ import org.jfree.data.xy.XYSeriesCollection;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class GraphicalPanel extends JPanel {
 
-    public GraphicalPanel() {
-        final XYSeries series = new XYSeries("Satisfaction");
-        final XYSeriesCollection dataset = new XYSeriesCollection(series);
-        final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+    public static Lock lock = new ReentrantLock();
+    private static int counter = 0;
+    final XYSeries series = new XYSeries("Satisfaction");
+    final XYSeriesCollection dataset = new XYSeriesCollection(series);
+    final XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
+    private ArrayList<ArrayList<Integer>> arrayList, arrayList2;
 
-        //a retirer 
-        series.add(1, 4);
-        series.add(3, 9);
-        series.add(4, 4);
-        series.add(2, 2);
-        
-        
-        //doit prendre en paramettre la station pour laquelle il faut afficher les stats
-        /*
-         ArrayList<Integer> dataArray = station.getStatistiques().getTrain_occupation();
-         for(int i; i<dataArray.size(); i++){
-         	series.add(i, dataArray.get(i));
-         }
-         * */
+    public GraphicalPanel() {
 
         renderer.setSeriesPaint(0, Color.decode("#F44336"));
-        renderer.setSeriesShapesVisible(0, true);
+        renderer.setSeriesShapesVisible(0, false);
 
         JFreeChart statsChart = ChartFactory.createXYLineChart("Stats", "Abscisses", "Ordonnees", dataset, PlotOrientation.VERTICAL, true, false, false);
 
@@ -53,5 +45,20 @@ public class GraphicalPanel extends JPanel {
         ChartPanel gPanel = new ChartPanel(statsChart);
 
         this.add(gPanel);
+    }
+
+    public void setData(RailwayNetwork railwayNetwork) {
+        if (counter++ % 1000 != 0)
+            return;
+        arrayList = railwayNetwork.getLines().get(0).getStatistique().getPopEvolution();
+        dataset.removeAllSeries();
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            XYSeries series = new XYSeries(railwayNetwork.getLines().get(0).getStations().get(i).getStationName());
+            for (int j = 0; j < arrayList.get(i).size(); j++)
+                series.add(j, arrayList.get(i).get(j));
+            renderer.setSeriesShapesVisible(i, false);
+            dataset.addSeries(series);
+        }
     }
 }

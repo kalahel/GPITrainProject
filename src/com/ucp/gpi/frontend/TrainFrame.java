@@ -85,6 +85,8 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
         orangeButton.addEventListener(this);
         purpleButton.addEventListener(this);
         greenButton.addEventListener(this);
+
+        //gPanel.setData(dashboard.getRailwayNetwork());
     }
 
     void createUIComponents() {
@@ -124,6 +126,9 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
             System.out.println("////////// REFRESH ALL //////////");
         refreshPanel(railwayNetwork);
         refreshStats();
+        GraphicalPanel.lock.lock();
+        gPanel.setData(dashboard.getRailwayNetwork());
+        GraphicalPanel.lock.unlock();
         pack();
 
     }
@@ -139,15 +144,17 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
     }
 
     public void refreshStats() {
+        if (dashboard.getSelectedStation() == null)
+            return;
         String text = "";
         if (dashboard.isSet() && dashboard.isSelectedOnce())
-            text += "Station sélectionnée : " + (dashboard.getSelectedStation().getStation().getStationName());
+            text += "Selected station : " + (dashboard.getSelectedStation().getStation().getStationName());
         else
-            text += "Station sélectionnée : " + (dashboard.getSelectedStationIndex() + 1);
-        text += "\nSatisfaction moyenne : X";
-        text += "\nOccupation moyenne des trains et des gares : X";
-        text += "\nNombre de passagers actuel : X";
-        text += "\nNombre de passagers total : X";
+            text += "Selected station : " + (dashboard.getSelectedStationIndex() + 1);
+        text += "\nStation ID : " + dashboard.getSelectedStation().getStation().getID();
+        text += "\nNumber of trains : " + dashboard.getRailwayNetwork().getLines().get(0).getTrains().size();
+        text += "\nCurrent passengers : " + dashboard.getSelectedStation().getStation().getUserList().size();
+        text += "\nTotal passengers : X";
 
         statsArea.setText(text);
     }
@@ -184,7 +191,7 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
         Font statsAreaFont = this.$$$getFont$$$("SansSerif", -1, 18, statsArea.getFont());
         if (statsAreaFont != null) statsArea.setFont(statsAreaFont);
         statsArea.setForeground(new Color(-1));
-        statsArea.setText("Station sélectionnée : X\nSatisfaction moyenne : X\nOccupation moyenne des trains et des gares : X\nNombre de passagers actuel : X\nNombre de passagers total : X");
+        statsArea.setText("Selected station : X\nStation ID : X\nNumber of trains : X\nCurrent passengers : X\nTotal passengers : X");
         panel2.add(statsArea, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, -1), null, 0, false));
         final JLabel label1 = new JLabel();
         Font label1Font = this.$$$getFont$$$(null, -1, 20, label1.getFont());

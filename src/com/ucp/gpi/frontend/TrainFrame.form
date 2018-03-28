@@ -63,7 +63,7 @@
               <editable value="false"/>
               <font name="SansSerif" size="18"/>
               <foreground color="-1"/>
-              <text value="Station sélectionnée : X&#10;Satisfaction moyenne : X&#10;Occupation moyenne des trains et des gares : X&#10;Nombre de passagers actuel : X&#10;Nombre de passagers total : X"/>
+              <text value="Selected station : X&#10;Station ID : X&#10;Number of trains : X&#10;Current passengers : X&#10;Total passengers : X"/>
             </properties>
           </component>
           <component id="1b0c1" class="javax.swing.JLabel">

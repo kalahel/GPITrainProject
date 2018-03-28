@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Dashboard extends JPanel {
-
     public static final int DB_SIZE_X = 1000;
     public static final int DB_SIZE_Y = 690;
     private static final int STATION_SIZE = 15;
@@ -155,14 +154,14 @@ public class Dashboard extends JPanel {
         g2.setStroke(new BasicStroke(4));
         if (TrainFrame.DEBUG_MODE)
             System.out.println("***** PRINT TRAINS *****");
-        isLocked = true;
+        GraphicalPanel.lock.lock();
         for (int index = 0; index < this.trainsArray.size(); index++) {
             g2.setColor(TRAIN_COLOR);
             g2.drawRect(trainsArray.get(index).getPosX() - (TRAIN_SIZE / 2), trainsArray.get(index).getPosY() - (TRAIN_SIZE / 2), TRAIN_SIZE, TRAIN_SIZE);
             if (TrainFrame.DEBUG_MODE)
                 System.out.println("***** PRINTED TRAIN X : " + trainsArray.get(index).getPosX() + " Y : " + trainsArray.get(index).getPosY() + " *****");
         }
-        isLocked = false;
+        GraphicalPanel.lock.unlock();
     }
 
 
@@ -273,6 +272,10 @@ public class Dashboard extends JPanel {
         };
     }
 
+    public RailwayNetwork getRailwayNetwork() {
+        return railwayNetwork;
+    }
+
     /**
      * Responsible for updating information on elements to draw
      * Some will be done only once : Station and Canton
@@ -281,8 +284,9 @@ public class Dashboard extends JPanel {
      * @param railwayNetwork Backend engine
      */
     public void setRailwayNetwork(RailwayNetwork railwayNetwork) {
-        if (!isLocked)
-            this.railwayNetwork = railwayNetwork;
+        GraphicalPanel.lock.lock();
+        this.railwayNetwork = railwayNetwork;
+        GraphicalPanel.lock.unlock();
         if (!isSet) {
             //TODO add check for multiple lines
             stationsArray = stationsGenerationFromList(railwayNetwork.getLines().get(0).getStations());
@@ -296,20 +300,19 @@ public class Dashboard extends JPanel {
         }
 
         // the train list can not be modified while it is rendered
-        if (!isLocked) {
-            if (TrainFrame.DEBUG_MODE)
-                printTrainsInfos(railwayNetwork.getLines().get(0).getTrains());
+        GraphicalPanel.lock.lock();
+        if (TrainFrame.DEBUG_MODE)
+            printTrainsInfos(railwayNetwork.getLines().get(0).getTrains());
 
-            this.trainsArray = new ArrayList<>();
-            for (VisualCanton visualCanton : visualCantonArray) {
-                if (!visualCanton.getCanton().isFree()) {
-                    trainsArray.add(singleTrainGeneration(visualCanton, (visualCanton.getCanton().getCurrentTrain().getProgression())));
-                    if (TrainFrame.DEBUG_MODE)
-                        System.out.println("++++ ADDED TRAIN TO THE LIST ++++");
-                }
+        this.trainsArray = new ArrayList<>();
+        for (VisualCanton visualCanton : visualCantonArray) {
+            if (!visualCanton.getCanton().isFree()) {
+                trainsArray.add(singleTrainGeneration(visualCanton, (visualCanton.getCanton().getCurrentTrain().getProgression())));
+                if (TrainFrame.DEBUG_MODE)
+                    System.out.println("++++ ADDED TRAIN TO THE LIST ++++");
             }
         }
-
+        GraphicalPanel.lock.unlock();
     }
 
     /**
