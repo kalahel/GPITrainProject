@@ -42,7 +42,7 @@ public class Run implements Runnable {
         
         //Breaking test
         //firstLine.getCantons().get(5).break_canton();
-        //firstLine.getStations().get(5).break_station();
+        //firstLine.getStations().get(6).break_station();
         
         if (this.isDisplayed)
             this.displayable.setNetwork(network);
