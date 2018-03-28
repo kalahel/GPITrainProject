@@ -1,11 +1,11 @@
 package com.ucp.gpi.backend.model;
 
-import java.util.ArrayList;
-
 import com.ucp.gpi.backend.builders.UserFactory;
 import com.ucp.gpi.backend.clock.Clock;
 import com.ucp.gpi.backend.statistique.StationStat;
 import com.ucp.gpi.backend.utils.Coordinates;
+
+import java.util.ArrayList;
 
 /**
  * @author matthieu
@@ -56,10 +56,12 @@ public class Station extends Thread{
     }
     
     public void break_station(){
+        System.out.println(this.stationName + " is broken !");
     	this.setOccupation(true);
     }
     
     public void repair_station(){
+        System.out.println(this.stationName + " is repaired !");
     	this.setOccupation(false);
     }
 
