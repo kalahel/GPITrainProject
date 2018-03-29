@@ -26,6 +26,11 @@ public class Dashboard extends JPanel {
     private final Color BACKGROUND_COLOR = Color.decode("#3C3F41");
     private final Color SELECTED_STATION_COLOR = Color.WHITE;
     private final Color TRAIN_COLOR = Color.decode("#F67280");
+    private final Color TRAIN_COLOR_EMPTY = Color.decode("#6ff78c");
+    private final Color TRAIN_COLOR_LIGHT = Color.decode("#71d7f6");
+    private final Color TRAIN_COLOR_MEDIUM = Color.decode("#f0f970");
+    private final Color TRAIN_COLOR_FILLED = Color.decode("#F67280");
+
     private boolean[][] adjacencyMatrix;
     private int selectedStationIndex = -1;
     private VisualStation selectedStation;
@@ -156,7 +161,16 @@ public class Dashboard extends JPanel {
             System.out.println("***** PRINT TRAINS *****");
         GraphicalPanel.lock.lock();
         for (int index = 0; index < this.trainsArray.size(); index++) {
-            g2.setColor(TRAIN_COLOR);
+            if (trainsArray.get(index).getOccupancy() < 0.1)
+                g2.setColor(TRAIN_COLOR_EMPTY);
+            else if (trainsArray.get(index).getOccupancy() < 0.4)
+                g2.setColor(TRAIN_COLOR_LIGHT);
+            else if (trainsArray.get(index).getOccupancy() < 0.6)
+                g2.setColor(TRAIN_COLOR_MEDIUM);
+            else
+                g2.setColor(TRAIN_COLOR_FILLED);
+
+
             g2.drawRect(trainsArray.get(index).getPosX() - (TRAIN_SIZE / 2), trainsArray.get(index).getPosY() - (TRAIN_SIZE / 2), TRAIN_SIZE, TRAIN_SIZE);
             if (TrainFrame.DEBUG_MODE)
                 System.out.println("***** PRINTED TRAIN X : " + trainsArray.get(index).getPosX() + " Y : " + trainsArray.get(index).getPosY() + " *****");
@@ -237,11 +251,18 @@ public class Dashboard extends JPanel {
      */
     private VisualTrain singleTrainGeneration(VisualCanton visualCanton, double progressionPercentage) {
         int posX, posY, dX, dY;
+        double occupancy;
         dX = visualCanton.getExternalVisualStation().getPosX() - visualCanton.getInternalVisualStation().getPosX();
         dY = visualCanton.getExternalVisualStation().getPosY() - visualCanton.getInternalVisualStation().getPosY();
         posX = (int) (visualCanton.getInternalVisualStation().getPosX() + (dX * (progressionPercentage)));
         posY = (int) (visualCanton.getInternalVisualStation().getPosY() + (dY * (progressionPercentage)));
-        return new VisualTrain(posX, posY);
+        if (visualCanton.getCanton().getCurrentTrain().getUserlist() != null && visualCanton.getCanton().getCurrentTrain().getUserlist().size() != 0) {
+            occupancy = ((double) visualCanton.getCanton().getCurrentTrain().getUserlist().size()) / visualCanton.getCanton().getCurrentTrain().getCapacity();
+            if (TrainFrame.DEBUG_MODE)
+                System.out.println("!!!!! capacity : " + visualCanton.getCanton().getCurrentTrain().getCapacity() + " occupancy : " + visualCanton.getCanton().getCurrentTrain().getUserlist().size() + " Rate :" + occupancy);
+        } else
+            occupancy = 0;
+        return new VisualTrain(posX, posY, occupancy);
     }
 
     /**
