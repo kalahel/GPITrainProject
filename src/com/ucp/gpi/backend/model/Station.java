@@ -44,24 +44,24 @@ public class Station extends Thread{
             try {
                 Station.sleep(Clock.populationSpawn);
             } catch (InterruptedException e) {
-                System.out.println("Train " + ID + " didn't sleep !");
+                //System.out.println("Train " + ID + " didn't sleep !");
                 e.printStackTrace();
             }
             if (userList.size() < capacity){
             	User u = ufactory.createUser(this, line);
             	this.userList.add(u);
-            	System.out.println(stationName + " Population: " + userList.size() + "/" + capacity);
+            	//System.out.println(stationName + " Population: " + userList.size() + "/" + capacity);
             }
         }
     }
     
     public void break_station(){
-        System.out.println(this.stationName + " is broken !");
+        //System.out.println(this.stationName + " is broken !");
     	this.setOccupation(true);
     }
     
     public void repair_station(){
-        System.out.println(this.stationName + " is repaired !");
+        //System.out.println(this.stationName + " is repaired !");
     	this.setOccupation(false);
     }
 

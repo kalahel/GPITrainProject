@@ -35,7 +35,7 @@ public class Train extends Thread {
             try {
                 this.sleep(Clock.speed);
             } catch (InterruptedException e) {
-                System.out.println("Train " + ID + " didn't sleep !");
+                //System.out.println("Train " + ID + " didn't sleep !");
                 e.printStackTrace();
             }
             if (trace != null) {
@@ -66,7 +66,7 @@ public class Train extends Thread {
 	                currentDistanceDone = 0;
             	}
             	else{
-            		System.out.println("Train " + ID + " : Bloqué car gare " + this.getCurrentCanton().getEndStation() + "pleine");
+            		//System.out.println("Train " + ID + " : Bloqué car gare " + this.getCurrentCanton().getEndStation() + "pleine");
             		this.currentDistanceDone -= this.currentCanton.getSpeed();
                     progression = currentDistanceDone / currentCanton.getLenght();
             	}
@@ -87,13 +87,13 @@ public class Train extends Thread {
             } else {
             	this.getCurrentStation().setOccupation(false);
                 arrived = true;
-                System.out.println("Train " + ID + ": Arrivé à destination");
+                //System.out.println("Train " + ID + ": Arrivé à destination");
             }
         } else {
             if (trace != null) {
                 int nbCanton = this.getTrace().getTrace().size();
-                System.out.println("Train " + ID + ": De " + this.getTrace().getTrace().get(0).getBeginStation().getStationName()
-                        + " à destination de " + this.getTrace().getTrace().get(nbCanton - 1).getEndStation().getStationName());
+                //System.out.println("Train " + ID + ": De " + this.getTrace().getTrace().get(0).getBeginStation().getStationName()
+                //        + " à destination de " + this.getTrace().getTrace().get(nbCanton - 1).getEndStation().getStationName());
                 this.setCurrentStation(trace.getTrace().get(0).getBeginStation());
             }
         }
@@ -108,7 +108,7 @@ public class Train extends Thread {
     			k++;
     		}
     	}
-    	System.out.println(k + " people moved out the train " + this.toString());
+    	//System.out.println(k + " people moved out the train " + this.toString());
     	
     	//IN
     	i=0;
@@ -121,7 +121,7 @@ public class Train extends Thread {
     			i++;
     		}
     	}
-    	System.out.println(i + " people moved in the train " + this.toString());
+    	//System.out.println(i + " people moved in the train " + this.toString());
     }
 
     public String getID() {

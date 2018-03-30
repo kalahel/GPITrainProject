@@ -12,6 +12,7 @@ public class Run implements Runnable {
 
     private static final int TRAIN_FREQ = 100;
     private static final int DURATION = 1000;
+    private int count;
 
     private RailwayNetwork network;
     private Clock clock;
@@ -66,9 +67,19 @@ public class Run implements Runnable {
                 this.displayable.refreshAll(network);
             }
             
-            for(int i=0; i<firstLine.getNb_stations(); i++){
-            	int nbPopByStation = firstLine.getStations().get(i).getUserList().size();
-            	firstLine.getStatistique().getPopEvolution().get(i).add(nbPopByStation);
+            count ++;
+            
+            if(count%50 == 0){
+	            for(int i=0; i<firstLine.getNb_stations(); i++){
+	            	int nbPopByStation = firstLine.getStations().get(i).getUserList().size();
+	            	if(firstLine.getStatistique().getPopEvolution().get(i).size() < 100){
+		            	firstLine.getStatistique().getPopEvolution().get(i).add(nbPopByStation);
+	            	}
+	            	else{
+	            		firstLine.getStatistique().getPopEvolution().get(i).remove(0);
+	            		firstLine.getStatistique().getPopEvolution().get(i).add(nbPopByStation);
+	            	}
+	            }
             }
             //System.out.println(firstLine.getStatistique().getPopEvolution().get(5).toString() );
         }
