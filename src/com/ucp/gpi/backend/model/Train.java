@@ -61,7 +61,6 @@ public class Train extends Thread {
 	                this.setCurrentStation(currentCanton.getEndStation());
 	                this.getCurrentStation().setOccupation(true);
 	                this.setCurrentCanton(null);
-	                this.mindTheGap(this.getCurrentStation());
 	
 	                progression = 0;
 	                currentDistanceDone = 0;
@@ -77,6 +76,7 @@ public class Train extends Thread {
         } else if (currentCanton == null && currentStation != null) {
             if (trace.getTrace().size() != 0) {
                 if (!trace.getTrace().get(0).getOccupation()) {
+                	this.mindTheGap(this.getCurrentStation());
                     //System.out.println("Train " + ID + ": Sorti de Gare (" + this.getCurrentStation().getName() + ")");
                     this.setCurrentCanton(trace.getTrace().get(0));
                     this.getCurrentCanton().setCurrentTrain(this);
