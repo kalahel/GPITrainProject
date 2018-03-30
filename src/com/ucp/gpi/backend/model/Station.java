@@ -1,11 +1,12 @@
 package com.ucp.gpi.backend.model;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import com.ucp.gpi.backend.builders.UserFactory;
 import com.ucp.gpi.backend.clock.Clock;
 import com.ucp.gpi.backend.statistique.StationStat;
 import com.ucp.gpi.backend.utils.Coordinates;
-
-import java.util.ArrayList;
 
 /**
  * @author matthieu
@@ -21,6 +22,8 @@ public class Station extends Thread{
     private boolean occupation;
     private int capacity;
     private Line line;
+    private final int maxSpawn = 20;
+    private final int minSpawn = 1;
 
     public Station(){
     	userList = new ArrayList<User>();
@@ -40,6 +43,8 @@ public class Station extends Thread{
     @Override
     public void run() {
     	UserFactory ufactory = new UserFactory();
+    	Random rand = new Random();
+    	int i, nbSpawn;
         while (true) {
             try {
                 Station.sleep(Clock.populationSpawn);
@@ -48,8 +53,11 @@ public class Station extends Thread{
                 e.printStackTrace();
             }
             if (userList.size() < capacity){
-            	User u = ufactory.createUser(this, line);
-            	this.userList.add(u);
+            	nbSpawn = (rand.nextInt(maxSpawn - minSpawn) + minSpawn) % ((this.capacity - this.userList.size()) + 1);
+            	for (i = 0; i < nbSpawn; i++){
+	            	User u = ufactory.createUser(this, line);
+	            	this.userList.add(u);
+            	}
             	//System.out.println(stationName + " Population: " + userList.size() + "/" + capacity);
             }
         }
