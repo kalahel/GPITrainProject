@@ -161,11 +161,11 @@ public class Dashboard extends JPanel {
             System.out.println("***** PRINT TRAINS *****");
         GraphicalPanel.lock.lock();
         for (int index = 0; index < this.trainsArray.size(); index++) {
-            if (trainsArray.get(index).getOccupancy() < 0.1)
+            if (trainsArray.get(index).getOccupancy() < 0.4)
                 g2.setColor(TRAIN_COLOR_EMPTY);
-            else if (trainsArray.get(index).getOccupancy() < 0.4)
-                g2.setColor(TRAIN_COLOR_LIGHT);
             else if (trainsArray.get(index).getOccupancy() < 0.6)
+                g2.setColor(TRAIN_COLOR_LIGHT);
+            else if (trainsArray.get(index).getOccupancy() < 0.9)
                 g2.setColor(TRAIN_COLOR_MEDIUM);
             else
                 g2.setColor(TRAIN_COLOR_FILLED);
