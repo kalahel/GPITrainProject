@@ -154,7 +154,7 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
         text += "\nStation ID : " + dashboard.getSelectedStation().getStation().getID();
         text += "\nNumber of trains : " + dashboard.getRailwayNetwork().getLines().get(0).getTrains().size();
         text += "\nCurrent passengers : " + dashboard.getSelectedStation().getStation().getUserList().size();
-        text += "\nTotal passengers : X";
+        text += "\nTotal passengers capacity : " + dashboard.getSelectedStation().getStation().getCapacity();
 
         statsArea.setText(text);
     }
