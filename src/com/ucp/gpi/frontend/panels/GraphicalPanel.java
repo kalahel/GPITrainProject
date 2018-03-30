@@ -30,7 +30,7 @@ public class GraphicalPanel extends JPanel {
         renderer.setSeriesPaint(0, Color.decode("#F44336"));
         renderer.setSeriesShapesVisible(0, false);
 
-        JFreeChart statsChart = ChartFactory.createXYLineChart("Stats", "Abscisses", "Ordonnees", dataset, PlotOrientation.VERTICAL, true, false, false);
+        JFreeChart statsChart = ChartFactory.createXYLineChart("Stats", "Temps (glissant)", "Population", dataset, PlotOrientation.VERTICAL, true, false, false);
 
         ((XYPlot) statsChart.getPlot()).setRenderer(renderer);
         statsChart.getPlot().setBackgroundPaint(Color.decode("#3C3F41"));
@@ -40,7 +40,7 @@ public class GraphicalPanel extends JPanel {
         ((XYPlot) statsChart.getPlot()).getDomainAxis().setLabelPaint(Color.WHITE);
         ((XYPlot) statsChart.getPlot()).getRangeAxis().setLabelPaint(Color.WHITE);
         ((XYPlot) statsChart.getPlot()).getRangeAxis().setTickLabelPaint(Color.WHITE);
-        ((XYPlot) statsChart.getPlot()).getDomainAxis().setTickLabelPaint(Color.WHITE);
+        ((XYPlot) statsChart.getPlot()).getDomainAxis().setTickLabelsVisible(false);
 
         ChartPanel gPanel = new ChartPanel(statsChart);
 

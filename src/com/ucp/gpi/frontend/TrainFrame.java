@@ -191,7 +191,7 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
         Font statsAreaFont = this.$$$getFont$$$("SansSerif", -1, 18, statsArea.getFont());
         if (statsAreaFont != null) statsArea.setFont(statsAreaFont);
         statsArea.setForeground(new Color(-1));
-        statsArea.setText("Selected station : X\nStation ID : X\nNumber of trains : X\nCurrent passengers : X\nTotal passengers : X");
+        statsArea.setText("Select a station\n\n\n\n");
         panel2.add(statsArea, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, -1), null, 0, false));
         final JLabel label1 = new JLabel();
         Font label1Font = this.$$$getFont$$$(null, -1, 20, label1.getFont());
