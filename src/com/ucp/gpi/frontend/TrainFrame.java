@@ -78,6 +78,9 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
             public void mouseExited(MouseEvent e) {
             }
         });
+
+        statsArea.setFocusable(false);
+
         dashboard.repaint();
         rightBottomPanel.setBackground(new Color(0, 0, 0, 0));
 
@@ -85,8 +88,6 @@ public class TrainFrame extends JFrame implements SwingerEventListener, Displaya
         orangeButton.addEventListener(this);
         purpleButton.addEventListener(this);
         greenButton.addEventListener(this);
-
-        //gPanel.setData(dashboard.getRailwayNetwork());
     }
 
     void createUIComponents() {
